@@ -49,6 +49,8 @@ Antes de comenzar, asegúrate de contar con:
 - **Usb drive** de al menos **4GB**.
 - Conocimientos básicos de **Linux, ROS 2 y navegación robótica**.  
 
+<div id='instalación-de-ubuntu-en-nao' />
+  
 ### 🖥 Instalación de Ubuntu en Nao  
 
 Para instalar Ubuntu en el robot Nao V6, se debe seguir un proceso que involucra la **creación de una imagen de Ubuntu 22.04 a partir de una imagen oficial de NaoQi** (el sistema operativo predeterminado del Nao) y su posterior flasheo en el robot. Es **imprescindible por ahora utilizar la versión 2.8.5.10 de NaoQi**, ya que otras versiones pueden causar problemas de compatibilidad.
@@ -123,33 +125,49 @@ Para instalar Ubuntu en el robot Nao V6, se debe seguir un proceso que involucra
 - Los LEDs de los ojos y el pecho se quedan **en blanco**.  
 - Las orejas del robot quedan **en azul fijo**.  
 
-En este punto, Ubuntu ya está instalado y el robot está listo para la configuración de red y la instalación de **ROS 2**. 🚀
+En este punto, Ubuntu ya está instalado y el robot está listo para la configuración inicial y la instalación de **ROS 2**. 🚀
+
+<div id='configuración-inicial-de-ubuntu-en-el-robot' />
 
 ### ⚙️ Configuración inicial de Ubuntu en el robot
 
 
+
+
+<div id='instalación-de-ros-2' />
+
 ### 🤖 Instalación de ROS 2  
 (Pasos para instalar ROS 2 en el robot...)  
+
+<div id='configuración-de-nav2' />
 
 ### 🚀 Configuración de Nav2  
 (Guía paso a paso sobre la instalación y ajuste de Nav2...)  
 
 ---
 
+<div id='integración-con-api-web' />
+
 ## 🌐 Integración con API Web  
 Explicación de cómo el robot se comunica con la API para recibir comandos de navegación.  
 
 ---
+
+<div id='solución-de-problemas-y-buenas-prácticas' />
 
 ## 🛠 Solución de Problemas y Buenas Prácticas  
 Lista de errores comunes, cómo solucionarlos y recomendaciones para optimizar el sistema.  
 
 ---
 
+<div id='contribuciones' />
+
 ## 🤝 Contribuciones  
 Si quieres mejorar este proyecto, revisa nuestra [Guía de Contribución](#).  
 
 ---
+
+<div id='licencia' />
 
 ## 📜 Licencia  
 Este proyecto está licenciado bajo **MIT License**. Consulta el archivo [LICENSE](#) para más detalles.  
