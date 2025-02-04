@@ -1,6 +1,6 @@
 # nao_ros2
 
-![nao_ros2_logo](https://github.com/user-attachments/assets/672c2f2d-2935-439e-b361-53dad749bde3)
+![nao_ros2_logo](https://github.com/user-attachments/assets/7993fa06-eb04-4bc7-bc2d-a3a16c6948d7)
 
 ## Introducción
 
@@ -23,3 +23,5 @@ Este repositorio está dirigido a desarrolladores, investigadores y entusiastas 
 - Implementación de Nav2 para navegación autónoma.
 - Integración con una API web para control remoto.
 - Solución de problemas y buenas prácticas.
+
+  
