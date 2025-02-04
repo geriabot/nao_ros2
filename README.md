@@ -99,7 +99,7 @@ Para instalar Ubuntu en el robot Nao V6, se debe seguir un proceso que involucra
    - Insertar el **USB con el firmware original** en el robot.  
    - Mantener presionado el botón del pecho durante **6 segundos o más** hasta que la luz del pecho se ponga azul.  
    - Esperar unos minutos, el botón cambia de color a blanco y se inicia el sistema. Confirmar que NaoQi está instalado fijándose en su comportamiento (habla, se mueve, pide conectarse a la red, cambia de colores a verde a veces, reacciona a toques en el pecho, etc).
-   - **Opcional:** Se puede confirmar que la versión correcta de Naoqi (2.8.5.10) ha sido instalada a través de ssh (consultar [configuración de aldebaran](http://doc.aldebaran.com/2-8/family/nao_user_guide/introduction_nao.html)
+   - **Opcional:** Se puede confirmar que la versión correcta de Naoqi (2.8.5.10) ha sido instalada a través de ssh (consultar [configuración de aldebaran](http://doc.aldebaran.com/2-8/family/nao_user_guide/introduction_nao.html)).
 
 7. **Crear un USB con la imagen de Ubuntu**  
    - Formatear el USB de **4GB o más** en **FAT32**.  
