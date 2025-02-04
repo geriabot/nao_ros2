@@ -8,7 +8,8 @@
   - [Requisitos Previos](#requisitos-previos)  
   - [Instalación de Ubuntu en Nao](#instalación-de-ubuntu-en-nao)
   - [Configuración inicial de Ubuntu en el robot](#configuración-inicial-de-ubuntu-en-el-robot)
-  - [Instalación de ROS 2](#instalación-de-ros-2)  
+  - [Instalación de ROS 2](#instalación-de-ros-2)
+  - [Open Access NAO (OAN)](#open-access-nao-oan)
   - [Configuración de Nav2](#configuración-de-nav2)  
 - [Integración con API Web](#integración-con-api-web)  
 - [Solución de Problemas y Buenas Prácticas](#solución-de-problemas-y-buenas-prácticas)  
@@ -339,6 +340,11 @@ ros2 pkg list
 
 Si ambos comandos muestran información correctamente, la instalación de ROS 2 Rolling ha sido exitosa. El NAO y el PC están listos para continuar con la configuración de paquetes adicionales como **nao_lola** y **walk**. 🚀
 
+<div id='open-access-nao-oan' />
+
+### 🦾 Open Access NAO (OAN)
+
+// Explicar todo, además, añadir una pequeña explicación en la itroducción.
 
 <div id='configuración-de-nav2' />
 
