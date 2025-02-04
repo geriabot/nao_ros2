@@ -91,7 +91,7 @@ Para instalar Ubuntu en el robot Nao V6, se debe seguir un proceso que involucra
 
 5. **Preparar un USB con el firmware original de NaoQi**  
    - Formatear un USB de al menos **4GB** en formato **FAT32**.  
-   - Flashear la **imagen oficial de NaoQi** (e.g. `nao-2.8.5.10.opn`), **!No la generada todavía!**, en el USB usando la herramienta **NaoFlasher** con Factory Reset activado.
+   - Flashear la **imagen oficial de NaoQi 2.8.5.10** (e.g. `nao-2.8.5.10.opn`), **!No la generada todavía!**, en el USB usando la herramienta **NaoFlasher** con Factory Reset activado.
    - Este paso es esencial ya que el firmware de los motores es distinto en la última versión de NaoQi (que suele venir instalada de fábrica en el Nao), y si se salta este paso los motores no funcionarán correctamente.
 
 6. **Realizar el primer flasheo con la imagen original de NaoQi**  
