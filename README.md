@@ -113,7 +113,7 @@ Para instalar Ubuntu en el robot Nao V6, se debe seguir un proceso que involucra
 
 ---
 
-## **📈 Verificación de instalación exitosa**  
+## **✅ Verificación de instalación exitosa**  
 
 👌 **NaoQi instalado correctamente (antes de Ubuntu):**  
 - El robot **habla, se mueve** y reacciona al tacto.  
@@ -135,7 +135,7 @@ Una vez instalado Ubuntu en el robot NAO, es necesario realizar una configuraci�
 
 ---
 
-## **🛠️ 1. Conectar el robot NAO por Ethernet**  
+## **🌐 1. Conectar el robot NAO por Ethernet**  
 
 1. Conectar el NAO a un router mediante un cable **Ethernet**.
 2. Asegurarse de estar conectado en tu ordenador al wifi del router.
@@ -157,7 +157,7 @@ Una vez instalado Ubuntu en el robot NAO, es necesario realizar una configuraci�
 
 ---
 
-## **🌐 2. Configurar locales y solucionar errores de idioma**  
+## **🗣️ 2. Configurar locales y solucionar errores de idioma**  
 Si aparece un error sobre `LC_ALL`, las configuraciones regionales deben ajustarse:
 
 1. Editar el archivo de configuración de localización:  
@@ -182,7 +182,7 @@ Si aparece un error sobre `LC_ALL`, las configuraciones regionales deben ajustar
 
 ---
 
-## **🛡️ 3. Configurar conexión WiFi**  
+## **🛜 3. Configurar conexión WiFi**  
 Una vez conectado por **SSH**, se debe configurar `netplan` para que el robot se conecte automáticamente a una red WiFi:
 
 1. Abrir el archivo de configuración de `netplan`:  
