@@ -1,5 +1,7 @@
 # nao_ros2
 
+![nao_ros2_logo](https://github.com/user-attachments/assets/672c2f2d-2935-439e-b361-53dad749bde3)
+
 ## Introducción
 
 El objetivo de este repositorio es documentar de manera clara y unificada el proceso de instalación y configuración de **Ubuntu** y **ROS 2** en el robot **Nao**. Actualmente, la información sobre este procedimiento está altamente distribuida y mal documentada, lo que dificulta su implementación. **nao_ros2** busca solucionar este problema proporcionando una guía completa y estructurada.
