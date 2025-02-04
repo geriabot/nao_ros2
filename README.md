@@ -18,6 +18,7 @@
 ---
 
 <div id='introducción' />
+  
 ## Introducción  
 
 El objetivo de este repositorio es documentar de manera clara y unificada el proceso de instalación y configuración de **Ubuntu 22.04** y **ROS 2** en el robot **Nao**. Actualmente, la información sobre este procedimiento está altamente distribuida y mal documentada, lo que dificulta su implementación. **nao_ros2** busca solucionar este problema proporcionando una guía completa y estructurada.
@@ -35,7 +36,10 @@ Este repositorio está dirigido a desarrolladores, investigadores y entusiastas 
 ---
 
 <div id='instalación-y-configuración' />
+  
 ## 🔧 Instalación y Configuración  
+
+<div id='requisitos-previos' />
 
 ### 📌 Requisitos Previos  
 Antes de comenzar, asegúrate de contar con:  
