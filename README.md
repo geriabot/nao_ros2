@@ -6,7 +6,8 @@
 - [Introducción](#introducción)  
 - [Instalación y Configuración](#instalación-y-configuración)  
   - [Requisitos Previos](#requisitos-previos)  
-  - [Instalación de Ubuntu en Nao](#instalación-de-ubuntu-en-nao)  
+  - [Instalación de Ubuntu en Nao](#instalación-de-ubuntu-en-nao)
+  - [Configuración inicial de Ubuntu en el robot](#configuración-inicial-de-ubuntu-en-el-robot)
   - [Instalación de ROS 2](#instalación-de-ros-2)  
   - [Configuración de Nav2](#configuración-de-nav2)  
 - [Integración con API Web](#integración-con-api-web)  
@@ -82,13 +83,13 @@ Para instalar Ubuntu en el robot Nao V6, se debe seguir un proceso que involucra
 
 5. **Preparar un USB con el firmware original de NaoQi**  
    - Formatear un USB de al menos **4GB** en formato **FAT32**.  
-   - Flashear la **imagen oficial** (e.g. `nao-2.8.5.10.opn`), **!!No la generada todavía!!** en el USB usando la herramienta **NaoFlasher** con Factory Reset activado.
-   - Este paso es esencial ya que el firmware de los motores es distinto en la última versión (que suele venir instalada de fábrica en el Nao), y si se salta este paso los motores no funcionarán correctamente.
+   - Flashear la **imagen oficial** (e.g. `nao-2.8.5.10.opn`), **!No la generada todavía!**, en el USB usando la herramienta **NaoFlasher** con Factory Reset activado.
+   - Este paso es esencial ya que el firmware de los motores es distinto en la última versión de NaoQi (que suele venir instalada de fábrica en el Nao), y si se salta este paso los motores no funcionarán correctamente.
 
 6. **Realizar el primer flasheo con la imagen original de NaoQi**  
    - Apagar el Nao.  
    - Insertar el **USB con el firmware original** en el robot.  
-   - Mantener presionado el botón del pecho durante **6 segundos o más** hasta que parpadee la luz del pecho se ponga azul.  
+   - Mantener presionado el botón del pecho durante **6 segundos o más** hasta que la luz del pecho se ponga azul.  
    - Esperar unos minutos, el botón cambia de color a blanco y se inicia el sistema. Confirmar que NaoQi está instalado fijándose en su comportamiento (habla, se mueve, pide conectarse a la red, cambia de colores a verde a veces, reacciona a toques en el pecho, etc).
    - Se puede confirmar que la versión correcta de Naoqi (2.8.5.10) ha sido instalada a través de ssh.
 
@@ -99,8 +100,8 @@ Para instalar Ubuntu en el robot Nao V6, se debe seguir un proceso que involucra
 8. **Flashear la imagen de Ubuntu en Nao**  
    - Apagar el robot nuevamente.  
    - Insertar el **USB con la imagen de Ubuntu**.  
-   - Mantener presionado el botón del pecho durante **6 segundos o más** hasta que parpadee azul rápidamente.  
-   - Esperar unos minutos hasta que el botón del pecho cambie a blanco y los LEDs se estabilicen.  
+   - Mantener presionado el botón del pecho durante **6 segundos o más** hasta que la luz del pecho se ponga azul. 
+   - Esperar unos minutos, el botón cambia de color a blanco y se inicia el sistema (al principio parpadean algunos leds y luego se mantienen fijos, los ojos y pecho en blanco y las orejas en azul). Confirmar que ubuntu está instalado correctamente fijándose en su comportamiento (ya no habla, no se mueve, no reacciona a toques en el pecho).
 
 ---
 
@@ -118,9 +119,10 @@ Para instalar Ubuntu en el robot Nao V6, se debe seguir un proceso que involucra
 
 En este punto, Ubuntu ya está instalado y el robot está listo para la configuración de red y la instalación de **ROS 2**. 🚀
 
+### ⚙️ Configuración inicial de Ubuntu en el robot
 
 
-### ⚙️ Instalación de ROS 2  
+### 🤖 Instalación de ROS 2  
 (Pasos para instalar ROS 2 en el robot...)  
 
 ### 🚀 Configuración de Nav2  
