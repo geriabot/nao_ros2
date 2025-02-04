@@ -4,7 +4,7 @@
 
 El objetivo de este repositorio es documentar de manera clara y unificada el proceso de instalación y configuración de **Ubuntu** y **ROS 2** en el robot **Nao**. Actualmente, la información sobre este procedimiento está altamente distribuida y mal documentada, lo que dificulta su implementación. **nao_ros2** busca solucionar este problema proporcionando una guía completa y estructurada.
 
-Este proyecto se centra en integrar **Nao** con **Nav2** (Navigation Stack 2), permitiendo la navegación autónoma en un entorno mapeado y controlado a través de una API web externa. 
+Este proyecto se centra en integrar **Nao** con **Nav2**, permitiendo la navegación autónoma en un entorno mapeado y controlado a través de una API web externa. 
 
 A lo largo de este repositorio, se detallarán los pasos necesarios para:
 - Instalar y configurar **Ubuntu** en el robot Nao.
@@ -21,5 +21,3 @@ Este repositorio está dirigido a desarrolladores, investigadores y entusiastas 
 - Implementación de Nav2 para navegación autónoma.
 - Integración con una API web para control remoto.
 - Solución de problemas y buenas prácticas.
-
-¡Esperamos que esta documentación te ayude a simplificar el proceso y llevar a **Nao** al siguiente nivel! 🚀
