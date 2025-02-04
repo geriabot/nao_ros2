@@ -371,4 +371,3 @@ Si quieres mejorar este proyecto, revisa nuestra [Guía de Contribución](#).
 <div id='licencia' />
 
 ## 📜 Licencia  
-
