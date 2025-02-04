@@ -62,7 +62,7 @@ Para instalar Ubuntu en el robot Nao V6, se debe seguir un proceso que involucra
 
 1. **Clonar el repositorio NaoImage**  
    ```bash
-   git clone https://github.com/NaoDevils/NaoImage
+   git clone https://github.com/NaoDevils/NaoImage.git
    cd NaoImage
    ```
 
