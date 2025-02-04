@@ -271,7 +271,7 @@ echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-a
 
 ---
 
-### **2. Instalar la versión base de ROS 2 Rolling**  
+### **2. Instalar ROS 2 Rolling**  
 Actualizar el sistema antes de instalar ROS 2:
 ```bash
 sudo apt update && sudo apt upgrade -y
