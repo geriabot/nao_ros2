@@ -99,7 +99,7 @@ Para instalar Ubuntu en el robot Nao V6, se debe seguir un proceso que involucra
    - Insertar el **USB con el firmware original** en el robot.  
    - Mantener presionado el botón del pecho durante **6 segundos o más** hasta que la luz del pecho se ponga azul.  
    - Esperar unos minutos, el botón cambia de color a blanco y se inicia el sistema. Confirmar que NaoQi está instalado fijándose en su comportamiento (habla, se mueve, pide conectarse a la red, cambia de colores a verde a veces, reacciona a toques en el pecho, etc).
-   - Se puede confirmar que la versión correcta de Naoqi (2.8.5.10) ha sido instalada a través de ssh.
+   - **Opcional:**Se puede confirmar que la versión correcta de Naoqi (2.8.5.10) ha sido instalada a través de ssh (consultar [configuración de aldebaran](http://doc.aldebaran.com/2-8/family/nao_user_guide/introduction_nao.html)
 
 7. **Crear un USB con la imagen de Ubuntu**  
    - Formatear el USB de **4GB o más** en **FAT32**.  
@@ -129,15 +129,216 @@ En este punto, Ubuntu ya está instalado y el robot está listo para la configur
 
 <div id='configuración-inicial-de-ubuntu-en-el-robot' />
 
-### ⚙️ Configuración inicial de Ubuntu en el robot
+### ⚙️ Configuración inicial de Ubuntu en el robot  
 
+Una vez instalado Ubuntu en el robot NAO, es necesario realizar una configuración inicial para habilitar la conexión a la red, ajustar la configuración regional y preparar el sistema para su uso con ROS 2.
+
+---
+
+## **🛠️ 1. Conectar el robot NAO por Ethernet**  
+
+1. Conectar el NAO a un router mediante un cable **Ethernet**.
+2. Asegurarse de estar conectado en tu ordenador al wifi del router.
+3. Acceder a la configuración del router a través de su dirección IP en un navegador web (por ejemplo, `192.168.1.1`).  
+4. Identificar la dirección IP asignada al NAO en la tabla de dispositivos conectados.  
+5. Conectarse por **SSH** al robot usando su dirección IP (ejemplo genérico):  
+   ```bash
+   # La contraseña es nao
+   ssh nao@192.168.1.100
+   ```  
+6. **Opcional:** Habilitar el color en el terminal descomentando la siguiente línea en `.bashrc`:  
+   ```bash
+   sudo nano ~/.bashrc
+   ```  
+   Buscar y descomentar:  
+   ```bash
+   #force_color_prompt=yes
+   ```
+
+---
+
+## **🌐 2. Configurar locales y solucionar errores de idioma**  
+Si aparece un error sobre `LC_ALL`, las configuraciones regionales deben ajustarse:
+
+1. Editar el archivo de configuración de localización:  
+   ```bash
+   sudo nano /etc/default/locale
+   ```
+2. Asegurarse de que contenga las siguientes líneas o ajustarlas si es necesario:  
+   ```bash
+   LANG=en_US.UTF-8
+   LANGUAGE=en_US:en
+   LC_ALL=en_US.UTF-8
+   ```  
+3. Regenerar las configuraciones regionales:  
+   ```bash
+   sudo locale-gen en_US.UTF-8
+   sudo dpkg-reconfigure locales
+   ```  
+4. Reiniciar el robot para aplicar los cambios:  
+   ```bash
+   sudo reboot
+   ```
+
+---
+
+## **🛡️ 3. Configurar conexión WiFi**  
+Una vez conectado por **SSH**, se debe configurar `netplan` para que el robot se conecte automáticamente a una red WiFi:
+
+1. Abrir el archivo de configuración de `netplan`:  
+   ```bash
+   sudo nano /etc/netplan/default.yaml
+   ```
+2. Modificar el archivo con la configuración de Ethernet y WiFi (ajustando los valores según la red utilizada):  
+   ```yaml
+   network:
+     version: 2
+     renderer: networkd
+     ethernets:
+       eth0:
+         optional: true
+         dhcp4: true
+         dhcp6: false
+         addresses:
+           - 192.168.1.110/24  # Dirección para Ethernet (Ajustar al gusto)
+         routes:
+           - to: default
+             via: 192.168.1.1
+     wifis:
+       wlan0:
+         optional: true
+         dhcp4: true
+         dhcp6: false
+         access-points:
+           "Mi_Red_WiFi_SSID":
+             password: "MiContraseñaSegura"
+         addresses:
+           - 192.168.1.120/24  # Dirección para Wi-Fi (Ajustar al gusto)
+   ```
+3. Aplicar la nueva configuración de red:  
+   ```bash
+   sudo netplan apply
+   ```
+4. Verificar que el NAO ya puede conectarse por WiFi utilizando SSH con la nueva dirección IP (asegurase en las tablas del router de la ip que se le ha asignado por wifi):
+   ```bash
+   ssh nao@192.168.1.120
+   ```
+5. Reiniciar el robot y comprobar que se conecta automáticamente al wifi.
 
 
 
 <div id='instalación-de-ros-2' />
 
-### 🤖 Instalación de ROS 2  
-(Pasos para instalar ROS 2 en el robot...)  
+### 🤖 Instalación de ROS 2 en NAO  
+
+Para que el robot NAO pueda operar correctamente con ROS 2, es mejor instalar la distribución **ROS 2 Rolling Ridley**, que es la versión de desarrollo continuo de ROS 2. A diferencia de las versiones estables como **Humble**, Rolling es una distribución en constante actualización, lo que permite acceder a las últimas mejoras, parches y compatibilidad con paquetes en desarrollo. Finalmente, hemos optado por usar **Rolling** porque muchos paquetes necesarios para el NAO, como **nao_lola** y **walk**, tienen un desarrollo más avanzado en esta versión.
+
+ROS2 Rolling deberá ser instalado tanto en un pc con **Ubuntu 22.04** (o 24.04, pero todavía no está probado) como en el Nao. La diferencia clave es que la instalación en el Nao será una instalación base, ya que no tiene interfaz gráfica.
+
+---
+
+## **🛠️ Pasos para instalar ROS 2 Rolling en el PC y NAO**  
+
+### **1. Configurar locales, repositorios y claves**  
+Antes de instalar ROS 2, se deben configurar los locales, repositorios correctos y agregar las claves necesarias:
+
+```bash
+locale  # check for UTF-8
+
+sudo apt update && sudo apt install locales
+sudo locale-gen en_US en_US.UTF-8
+sudo update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
+export LANG=en_US.UTF-8
+
+locale  # verify settings
+```
+
+```bash
+sudo apt update && sudo apt install -y software-properties-common
+sudo add-apt-repository universe
+```
+
+Ahora, agregar la clave GPG oficial de ROS 2:
+```bash
+sudo apt update && sudo apt install curl -y
+sudo curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg
+```
+
+Finalmente, agregar el repositorio de ROS 2 a la lista de sources:
+```bash
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(. /etc/os-release && echo $UBUNTU_CODENAME) main" | sudo tee /etc/apt/sources.list.d/ros2.list > /dev/null
+```
+
+---
+
+### **2. Instalar la versión base de ROS 2 Rolling**  
+Actualizar el sistema antes de instalar ROS 2:
+```bash
+sudo apt update && sudo apt upgrade -y
+```
+
+**Opcional**: Instalar herramientas de desarrollo de ROS:
+
+```bash
+sudo apt install ros-dev-tools
+```
+
+Actualiza los repositorios de apt después de configurarlos:
+
+```bash
+sudo apt update
+```
+
+ROS 2 se basa en sistemas Ubuntu actualizados. Se recomienda mantener el sistema al día antes de instalar paquetes:
+
+```bash
+sudo apt upgrade
+```
+
+Instalar ROS 2 Rolling en el **NAO** (versión base, sin entorno gráfico):
+```bash
+sudo apt install ros-rolling-ros-base
+```
+Este paquete incluye:
+- Herramientas básicas de **ROS 2**
+- Librerías de comunicación
+- Soporte para **nodos, servicios y mensajes**
+
+Instalar ROS 2 Rolling en el **PC** (version de escritorio, con entorno gráfico)
+```bash
+sudo apt install ros-rolling-desktop
+```
+Este paquete inclute además:
+- Herramientas de visualización como RViz
+- Simulador Gazebo (dependiendo de la versión)
+- Soporte para rqt y sus complementos
+- Herramientas adicionales para desarrollo y depuración
+
+---
+
+### **3. Configurar el entorno**  
+Se debe configurar el entorno para que ROS 2 se cargue en cada sesión:
+```bash
+echo "source /opt/ros/rolling/setup.bash" >> ~/.bashrc
+source ~/.bashrc
+```
+
+---
+
+### **4. Verificar la instalación de ROS 2**  
+Comprobar que ROS 2 está correctamente instalado:
+
+- Mostrar la ayuda del cliente ROS 2:
+```bash
+ros2 --help
+```
+- Listar los paquetes instalados:
+```bash
+ros2 pkg list
+```
+
+Si ambos comandos muestran información correctamente, la instalación de ROS 2 Rolling ha sido exitosa. El NAO y el PC están listos para continuar con la configuración de paquetes adicionales como **nao_lola** y **walk**. 🚀
+
 
 <div id='configuración-de-nav2' />
 
