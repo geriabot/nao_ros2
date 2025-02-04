@@ -371,4 +371,4 @@ Si quieres mejorar este proyecto, revisa nuestra [Guía de Contribución](#).
 <div id='licencia' />
 
 ## 📜 Licencia  
-Este proyecto está licenciado bajo **MIT License**. Consulta el archivo [LICENSE](#) para más detalles.  
+
