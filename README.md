@@ -363,6 +363,7 @@ El ecosistema de OAN está compuesto por múltiples paquetes interconectados, ca
 2. **NAO_LoLA (Low-Level Access)**
    - Implementa la interfaz **LoLA (Low-Level Access)** del NAO V6, permitiendo el acceso directo a sensores y actuadores del robot.
    - Proporciona datos en tiempo real sobre el estado de los motores, sensores de fuerza, IMU, cámaras y otros componentes del hardware del NAO.
+   - Permete controlar los actuadores como los motores de las articulaciones y los leds del Nao.
 
 3. **NAO_POS**
    - Facilita la ejecución de gestos y movimientos predefinidos en el robot NAO.
