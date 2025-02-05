@@ -396,10 +396,10 @@ El ecosistema de OAN está compuesto por múltiples paquetes interconectados, ca
 
 El desarrollo de **OAN** ha sido posible gracias al esfuerzo de múltiples colaboradores, con especial reconocimiento a **Antonio Bono (antbono)** y **Kenji Brameld (ijnek)**. 
 
-- **Antonio Bono (antbono)** ha liderado la integración de **NAO con ROS 2**, estableciendo una base sólida para la comunicación entre el robot y el framework ROS.
-- **Kenji Brameld (ijnek)** ha realizado contribuciones esenciales en locomoción y cinemática inversa, mejorando la estabilidad y precisión del control de movimiento en el NAO.
+- **Antonio Bono (antbono)** ha liderado la integración de **NAO con ROS 2**, estableciendo una base sólida para el Human Robot Interaction (HNI) en el NAO.
+- **Kenji Brameld (ijnek)** ha realizado contribuciones esenciales para la locomoción y la sincronización de workspaces.
 
-El trabajo conjunto de estos desarrolladores ha permitido que **OAN** se convierta en una plataforma confiable y robusta para la investigación y desarrollo con NAO en **ROS 2**. Gracias a estas contribuciones, **OAN** es actualmente una de las plataformas más completas para trabajar con **NAO en ROS 2**.
+El trabajo conjunto de estos desarrolladores ha permitido que **OAN** se convierta en una plataforma confiable y robusta para la investigación y desarrollo del NAO en **ROS 2**. Gracias a estas contribuciones, **OAN** es actualmente una de las plataformas más completas para trabajar con el **NAO en ROS 2**.
 
 
 <div id='configuración-de-nav2' />
