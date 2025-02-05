@@ -6,7 +6,7 @@
 - [Introducción](#introducción)  
 - [Instalación y Configuración](#instalación-y-configuración)  
   - [Requisitos Previos](#requisitos-previos)  
-  - [Instalación de Ubuntu en Nao](#instalación-de-ubuntu-en-nao)
+  - [Instalación de Ubuntu en el Nao](#instalación-de-ubuntu-en-nao)
   - [Configuración inicial de Ubuntu en el robot](#configuración-inicial-de-ubuntu-en-el-robot)
   - [Instalación de ROS 2](#instalación-de-ros-2)
   - [Open Access NAO (OAN)](#open-access-nao-oan)
@@ -54,7 +54,7 @@ Antes de comenzar, asegúrate de contar con:
 
 <div id='instalación-de-ubuntu-en-nao' />
   
-### 🖥 Instalación de Ubuntu en Nao  
+### 🖥 Instalación de Ubuntu en el Nao  
 
 Para instalar Ubuntu en el robot Nao V6, se debe seguir un proceso que involucra la **creación de una imagen de Ubuntu 22.04 a partir de una imagen oficial de NaoQi** (el sistema operativo predeterminado del Nao) y su posterior flasheo en el robot. Es **imprescindible por ahora utilizar la versión 2.8.5.10 de NaoQi**, ya que otras versiones pueden causar problemas de compatibilidad.
 
@@ -108,7 +108,7 @@ Para instalar Ubuntu en el robot Nao V6, se debe seguir un proceso que involucra
    - Formatear el USB de **4GB o más** en **FAT32**.  
    - Ahora sí, flashear la imagen de **Ubuntu 22.04 generada** (`image.opn`) en el USB utilizando el flasher, con Factory Reset activado. 
 
-8. **Flashear la imagen de Ubuntu en Nao**  
+8. **Flashear la imagen de Ubuntu en el Nao**  
    - Apagar el robot nuevamente.  
    - Insertar el **USB con la imagen de Ubuntu**.  
    - Mantener presionado el botón del pecho durante **6 segundos o más** hasta que la luz del pecho se ponga azul. 
@@ -232,7 +232,7 @@ Una vez conectado por **SSH**, se debe configurar `netplan` para que el robot se
 
 <div id='instalación-de-ros-2' />
 
-### 🤖 Instalación de ROS 2 en NAO  
+### 🤖 Instalación de ROS 2 en el NAO  
 
 Para que el robot NAO pueda operar correctamente con ROS 2, es mejor instalar la distribución **ROS 2 Rolling Ridley**, que es la versión de desarrollo continuo de ROS 2. A diferencia de las versiones estables como **Humble**, Rolling es una distribución en constante actualización, lo que permite acceder a las últimas mejoras, parches y compatibilidad con paquetes en desarrollo. Finalmente, hemos optado por usar **Rolling** porque muchos paquetes necesarios para el NAO, como **nao_lola** y **walk**, tienen un desarrollo más avanzado en esta versión.
 
@@ -350,7 +350,7 @@ Si ambos comandos muestran información correctamente, la instalación de ROS 2 
 
 [**Open Access NAO (OAN)**](https://github.com/antbono/OAN) es un conjunto de paquetes desarrollados para habilitar la integración del robot **NAO V6** en entornos **ROS 2**, proporcionando herramientas avanzadas para su control, operación y experimentación en diferentes áreas de la robótica. Este ecosistema permite interactuar con el NAO de manera modular y eficiente, ofreciendo un entorno accesible para su movimiento, locomoción e interacción en diversos escenarios de investigación y desarrollo.
 
-La motivación detrás de OAN radica en la necesidad de contar con herramientas más abiertas y accesibles para el desarrollo en NAO V6, facilitando el trabajo de la comunidad científica y de ingeniería. Este framework ha sido posible gracias al trabajo de expertos como [**Antonio Bono (antbono)**](https://github.com/antbono) y [**Kenji Brameld (ijnek)**](https://github.com/ijnek), quienes han desarrollado múltiples paquetes fundamentales para habilitar la ejecución de **ROS 2** en NAO y aprovechar sus capacidades en términos de percepción y actuación.
+La motivación detrás de OAN radica en la necesidad de contar con herramientas más abiertas y accesibles para el desarrollo en el NAO V6, facilitando el trabajo de la comunidad científica y de ingeniería. Este framework ha sido posible gracias al trabajo de expertos como [**Antonio Bono (antbono)**](https://github.com/antbono) y [**Kenji Brameld (ijnek)**](https://github.com/ijnek), quienes han desarrollado múltiples paquetes fundamentales para habilitar la ejecución de **ROS 2** en el NAO y aprovechar sus capacidades en términos de percepción y actuación.
 
 #### Estructura de OAN
 
@@ -384,7 +384,7 @@ El ecosistema de OAN está compuesto por múltiples paquetes interconectados, ca
    - Se encarga de detectar la presión con el suelo de los pies del NAO gracias a los cuatro sensores de resistencia sensible a la fuerza montados en cada pie, para el posterior cálculo del movimiento bípedo.
 
 8. **AUDIO_COMMON y USB_CAM** (Soporte adicional)
-   - **AUDIO_COMMON** gestiona la grabación y reproducción de sonido en NAO, permitiendo implementar sistemas de reconocimiento y respuesta auditiva.
+   - **AUDIO_COMMON** gestiona la grabación y reproducción de sonido en el NAO, permitiendo implementar sistemas de reconocimiento y respuesta auditiva.
    - **USB_CAM** proporciona compatibilidad con las cámaras del nao, facilitando la integración de visión computacional en ROS 2.
    - Ambos paquetes amplían la capacidad de percepción del robot, permitiendo el desarrollo de aplicaciones más completas.
   
@@ -396,7 +396,7 @@ El ecosistema de OAN está compuesto por múltiples paquetes interconectados, ca
 El desarrollo de **OAN** ha sido posible gracias al esfuerzo de múltiples colaboradores, con especial reconocimiento a **Antonio Bono (antbono)** y **Kenji Brameld (ijnek)**. 
 
 - **Antonio Bono (antbono)** ha liderado la integración de **NAO con ROS 2**, estableciendo una base sólida para la comunicación entre el robot y el framework ROS.
-- **Kenji Brameld (ijnek)** ha realizado contribuciones esenciales en locomoción y cinemática inversa, mejorando la estabilidad y precisión del control de movimiento en NAO.
+- **Kenji Brameld (ijnek)** ha realizado contribuciones esenciales en locomoción y cinemática inversa, mejorando la estabilidad y precisión del control de movimiento en el NAO.
 
 El trabajo conjunto de estos desarrolladores ha permitido que **OAN** se convierta en una plataforma confiable y robusta para la investigación y desarrollo con NAO en **ROS 2**. Gracias a estas contribuciones, **OAN** es actualmente una de las plataformas más completas para trabajar con **NAO en ROS 2**.
 
