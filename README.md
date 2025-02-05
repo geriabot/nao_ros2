@@ -6,7 +6,7 @@
 - [Introducción](#introducción)  
 - [Instalación y Configuración](#instalación-y-configuración)  
   - [Requisitos Previos](#requisitos-previos)  
-  - [Instalación de Ubuntu en Nao](#instalación-de-ubuntu-en-nao)
+  - [Instalación de Ubuntu en el Nao](#instalación-de-ubuntu-en-nao)
   - [Configuración inicial de Ubuntu en el robot](#configuración-inicial-de-ubuntu-en-el-robot)
   - [Instalación de ROS 2](#instalación-de-ros-2)
   - [Open Access NAO (OAN)](#open-access-nao-oan)
@@ -20,20 +20,22 @@
 
 <div id='introducción' />
   
-## Introducción  
+## Introducción
 
 El objetivo de este repositorio es documentar de manera clara y unificada el proceso de instalación y configuración de **Ubuntu 22.04** y **ROS 2** en el robot **Nao**. Actualmente, la información sobre este procedimiento está altamente distribuida y mal documentada, lo que dificulta su implementación. **nao_ros2** busca solucionar este problema proporcionando una guía completa y estructurada.
 
-Este proyecto se centra en integrar **Nao** con **Nav2**, permitiendo la navegación autónoma en un entorno mapeado y controlado a través de una API web externa.  
+Este proyecto se centra en integrar **Nao** con **ROS 2**, permitiendo la navegación autónoma en un entorno mapeado y controlado a través de una API web externa. Para lograr esto, se ha adoptado [**Open Access NAO (OAN)**](https://github.com/antbono/OAN), un framework de código abierto desarrollado para habilitar el control y la locomoción del NAO en **ROS 2**. OAN proporciona una serie de paquetes modulares que permiten el acceso a los sensores y actuadores del robot, la reproducción de gestos, el control de LEDs, la locomoción mediante **walk**, y otras funciones esenciales. Su integración en este repositorio garantiza una plataforma robusta y flexible para la investigación y desarrollo con el NAO en entornos basados en ROS 2.
 
 A lo largo de este repositorio, se detallarán los pasos necesarios para:  
 - Instalar y configurar **Ubuntu 22.04** en el robot Nao.  
-- Instalar **ROS 2** y los paquetes esenciales para el sistema.  
+- Instalar **ROS 2** y los paquetes esenciales para el sistema.
+- Integrar **OAN** para habilitar el control del robot en **ROS 2**.  
 - Configurar **Nav2** para la navegación autónoma del robot.  
 - Establecer comunicación con una API web para recibir comandos de destino y ejecutar movimientos precisos en el mapa.  
 
-Este repositorio está dirigido a desarrolladores, investigadores y entusiastas de la robótica que deseen modernizar y optimizar las capacidades del robot **Nao** utilizando tecnologías de código abierto.  
+Este repositorio está dirigido a desarrolladores, investigadores y entusiastas de la robótica que deseen modernizar y optimizar las capacidades del robot **Nao** utilizando tecnologías de código abierto.
 
+ 
 ---
 
 <div id='instalación-y-configuración' />
@@ -52,7 +54,7 @@ Antes de comenzar, asegúrate de contar con:
 
 <div id='instalación-de-ubuntu-en-nao' />
   
-### 🖥 Instalación de Ubuntu en Nao  
+### 🖥 Instalación de Ubuntu en el Nao  
 
 Para instalar Ubuntu en el robot Nao V6, se debe seguir un proceso que involucra la **creación de una imagen de Ubuntu 22.04 a partir de una imagen oficial de NaoQi** (el sistema operativo predeterminado del Nao) y su posterior flasheo en el robot. Es **imprescindible por ahora utilizar la versión 2.8.5.10 de NaoQi**, ya que otras versiones pueden causar problemas de compatibilidad.
 
@@ -106,7 +108,7 @@ Para instalar Ubuntu en el robot Nao V6, se debe seguir un proceso que involucra
    - Formatear el USB de **4GB o más** en **FAT32**.  
    - Ahora sí, flashear la imagen de **Ubuntu 22.04 generada** (`image.opn`) en el USB utilizando el flasher, con Factory Reset activado. 
 
-8. **Flashear la imagen de Ubuntu en Nao**  
+8. **Flashear la imagen de Ubuntu en el Nao**  
    - Apagar el robot nuevamente.  
    - Insertar el **USB con la imagen de Ubuntu**.  
    - Mantener presionado el botón del pecho durante **6 segundos o más** hasta que la luz del pecho se ponga azul. 
@@ -230,7 +232,7 @@ Una vez conectado por **SSH**, se debe configurar `netplan` para que el robot se
 
 <div id='instalación-de-ros-2' />
 
-### 🤖 Instalación de ROS 2 en NAO  
+### 🤖 Instalación de ROS 2 en el NAO  
 
 Para que el robot NAO pueda operar correctamente con ROS 2, es mejor instalar la distribución **ROS 2 Rolling Ridley**, que es la versión de desarrollo continuo de ROS 2. A diferencia de las versiones estables como **Humble**, Rolling es una distribución en constante actualización, lo que permite acceder a las últimas mejoras, parches y compatibilidad con paquetes en desarrollo. Finalmente, hemos optado por usar **Rolling** porque muchos paquetes necesarios para el NAO, como **nao_lola** y **walk**, tienen un desarrollo más avanzado en esta versión.
 
@@ -344,7 +346,61 @@ Si ambos comandos muestran información correctamente, la instalación de ROS 2 
 
 ### 🦾 Open Access NAO (OAN)
 
-// Explicar todo, además, añadir una pequeña explicación en la itroducción.
+#### Introducción
+
+[**Open Access NAO (OAN)**](https://github.com/antbono/OAN) es un conjunto de paquetes desarrollados para habilitar la integración del robot **NAO V6** en entornos **ROS 2**, proporcionando herramientas avanzadas para su control, operación y experimentación en diferentes áreas de la robótica. Este ecosistema permite interactuar con el NAO de manera modular y eficiente, ofreciendo un entorno accesible para su movimiento, locomoción e interacción en diversos escenarios de investigación y desarrollo.
+
+La motivación detrás de OAN radica en la necesidad de contar con herramientas más abiertas y accesibles para el desarrollo en el NAO V6, facilitando el trabajo de la comunidad científica y de ingeniería. Este framework ha sido posible gracias al trabajo de expertos como [**Antonio Bono (antbono)**](https://github.com/antbono) y [**Kenji Brameld (ijnek)**](https://github.com/ijnek), quienes han desarrollado múltiples paquetes fundamentales para habilitar la ejecución de **ROS 2** en el NAO y aprovechar sus capacidades en términos de percepción y actuación.
+
+#### Estructura de OAN
+
+El ecosistema de OAN está compuesto por múltiples paquetes interconectados, cada uno con una función específica dentro del sistema. A continuación, se detallan los principales paquetes y sus funciones:
+
+1. **HNI (Human-Nao Interaction)**
+   - Funciona como un middleware central que facilita la comunicación entre diferentes módulos del sistema.
+   - Optimiza la interacción entre los paquetes de percepción, locomoción y control del NAO, garantizando una integración fluida y coordinada.
+
+2. **NAO_LoLA (Low-Level Access)**
+   - Implementa la interfaz **LoLA (Low-Level Access)** del NAO V6, permitiendo el acceso directo a sensores y actuadores del robot.
+   - Proporciona datos en tiempo real sobre el estado de los motores, sensores de fuerza, IMU, cámaras y otros componentes del hardware del NAO.
+   - Permite controlar los actuadores como los motores de las articulaciones y los leds del Nao.
+
+3. **NAO_POS**
+   - Facilita la ejecución de gestos y movimientos predefinidos en el robot NAO.
+   - Permite realizar transiciones suaves entre distintas posturas, mejorando la expresividad del robot.
+
+4. **NAO_LED**
+   - Proporciona un control avanzado del sistema de iluminación del NAO.
+   - Permite utilizar luces LED para representar diferentes estados internos del robot mediante colores y patrones personalizados.
+
+5. **WALK** (Integrado dentro de OAN, desarrollado por **Kenji Brameld**)
+   - Sistema de locomoción desarrollado en **ROS 2** diseñado específicamente para NAO y otros robots bípedos.
+   - Proporciona un controlador de marcha que optimiza la estabilidad del robot al desplazarse.
+   - Se integra con **nao_ik** y **nao_phase_provider**.
+
+6. **NAO_IK (Inverse Kinematics, desarrollado por Kenji Brameld)**
+   - Implementa **cinemática inversa** en el NAO. Su objetivo es calcular las configuraciones articulares necesarias para caminar.
+
+7. **NAO_PHASE_PROVIDER**
+   - Se encarga de detectar la presión con el suelo de los pies del NAO gracias a los cuatro sensores de resistencia sensible a la fuerza montados en cada pie, para el posterior cálculo del movimiento bípedo.
+
+8. **AUDIO_COMMON y USB_CAM** (Soporte adicional)
+   - **AUDIO_COMMON** gestiona la grabación y reproducción de sonido en el NAO, permitiendo implementar sistemas de reconocimiento y respuesta auditiva.
+   - **USB_CAM** proporciona compatibilidad con las cámaras del nao, facilitando la integración de visión computacional en ROS 2.
+   - Ambos paquetes amplían la capacidad de percepción del robot, permitiendo el desarrollo de aplicaciones más completas.
+  
+9. **SYNC**
+   - Script desarrollado por [**Kenji Brameld (ijnek)**](https://github.com/ijnek/sync) que permite sincronizar un robot, como Nao, con un **workspace precompilado** de ROS 2 en otro pc. Su propósito principal es resolver el problema de la **compilación lenta en el Nao**, ya que el robot tiene **recursos computacionales limitados** y tarda mucho en compilar paquetes complejos.
+
+#### Créditos y Reconocimiento
+
+El desarrollo de **OAN** ha sido posible gracias al esfuerzo de múltiples colaboradores, con especial reconocimiento a **Antonio Bono (antbono)** y **Kenji Brameld (ijnek)**. 
+
+- **Antonio Bono (antbono)** ha liderado la integración de **NAO con ROS 2**, estableciendo una base sólida para la comunicación entre el robot y el framework ROS.
+- **Kenji Brameld (ijnek)** ha realizado contribuciones esenciales en locomoción y cinemática inversa, mejorando la estabilidad y precisión del control de movimiento en el NAO.
+
+El trabajo conjunto de estos desarrolladores ha permitido que **OAN** se convierta en una plataforma confiable y robusta para la investigación y desarrollo con NAO en **ROS 2**. Gracias a estas contribuciones, **OAN** es actualmente una de las plataformas más completas para trabajar con **NAO en ROS 2**.
+
 
 <div id='configuración-de-nav2' />
 
