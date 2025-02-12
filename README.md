@@ -10,6 +10,7 @@
   - [Configuración inicial de Ubuntu en el robot](#configuración-inicial-de-ubuntu-en-el-robot)
   - [Instalación de ROS 2](#instalación-de-ros-2)
   - [Open Access NAO (OAN)](#open-access-nao-oan)
+  - [Primeros pasos y pruebas de los paquetes](#primeros-pasos-y-pruebas-de-los-paquetes)
   - [Configuración de Nav2](#configuración-de-nav2)  
 - [Integración con API Web](#integración-con-api-web)  
 - [Solución de Problemas y Buenas Prácticas](#solución-de-problemas-y-buenas-prácticas)  
@@ -232,7 +233,7 @@ Una vez conectado por **SSH**, se debe configurar `netplan` para que el robot se
 
 <div id='instalación-de-ros-2' />
 
-### 🤖 Instalación de ROS 2 en el NAO  
+### 🤖 Instalación de ROS 2 en el NAO y un PC 
 
 Para que el robot NAO pueda operar correctamente con ROS 2, es mejor instalar la distribución **ROS 2 Rolling Ridley**, que es la versión de desarrollo continuo de ROS 2. A diferencia de las versiones estables como **Humble**, Rolling es una distribución en constante actualización, lo que permite acceder a las últimas mejoras, parches y compatibilidad con paquetes en desarrollo. Finalmente, hemos optado por usar **Rolling** porque muchos paquetes necesarios para el NAO, como **nao_lola** y **walk**, tienen un desarrollo más avanzado en esta versión.
 
@@ -365,11 +366,11 @@ El ecosistema de OAN está compuesto por múltiples paquetes interconectados, ca
    - Proporciona datos en tiempo real sobre el estado de los motores, sensores de fuerza, IMU, cámaras y otros componentes del hardware del NAO.
    - Permite controlar los actuadores como los motores de las articulaciones y los leds del Nao.
 
-3. **NAO_POS**
+3. **NAO_POS** 
    - Facilita la ejecución de gestos y movimientos predefinidos en el robot NAO.
    - Permite realizar transiciones suaves entre distintas posturas, mejorando la expresividad del robot.
 
-4. **NAO_LED**
+4. **NAO_LED** (Desarrollado por Antonio Bono)
    - Proporciona un control avanzado del sistema de iluminación del NAO.
    - Permite utilizar luces LED para representar diferentes estados internos del robot mediante colores y patrones personalizados.
 
@@ -381,7 +382,7 @@ El ecosistema de OAN está compuesto por múltiples paquetes interconectados, ca
 6. **NAO_IK (Inverse Kinematics, desarrollado por Kenji Brameld)**
    - Implementa **cinemática inversa** en el NAO. Su objetivo es calcular las configuraciones articulares necesarias para caminar.
 
-7. **NAO_PHASE_PROVIDER**
+7. **NAO_PHASE_PROVIDER (Desarrollado por Kenji Brameld)**
    - Se encarga de detectar la presión con el suelo de los pies del NAO gracias a los cuatro sensores de resistencia sensible a la fuerza montados en cada pie, para el posterior cálculo del movimiento bípedo.
 
 8. **AUDIO_COMMON y USB_CAM** (Soporte adicional)
@@ -401,11 +402,17 @@ El desarrollo de **OAN** ha sido posible gracias al esfuerzo de múltiples colab
 
 El trabajo conjunto de estos desarrolladores ha permitido que **OAN** se convierta en una plataforma confiable y robusta para la investigación y desarrollo del NAO en **ROS 2**. Gracias a estas contribuciones, **OAN** es actualmente una de las plataformas más completas para trabajar con el **NAO en ROS 2**.
 
-#### **Instalación de paquetes**
+### **Instalación de dependencias en el pc y en el nao**
 
-Para utilizar **OAN** en el robot NAO, es necesario clonar e instalar los paquetes requeridos. Se utilizarán los paquetes de **OAN**, salvo los forks personalizados de algunos módulos específicos.
+> :warning: **Aviso**: Si se quiere utilizar webots para simular el nao en un pc, es necesario instalar las dependencias necesarias en el pc además de en el nao.
 
-#### 💻\*\* Clonación de paquetes\*\*
+Es necesario seguir los pasos explicados en el repositorio [**OAN**](https://github.com/antbono/OAN) de Antonio Bono **¡¡CUIDADO!!**. Por ahora es necesario saltarse los pasos de instalación del readme de OAN **(2.1 y 2.3)**, ya que los repositorios necesarios se instalarán después. Esto se debe a que algunos repositorios están modificados y es necesario clonar mis fork en vez del original. Ignorar el **aviso** de audio_common en el paso **2.2** ya que en rolling no existe este problema. De la sección **3** es **solo** necesario realizar la **3.3**  ya que el resto ya han sido realizadas y explicadas en este readme (si se quiere usar el simulador **webots**, también es necesario hacer este paso **en tu pc**).
+
+#### **Instalación de repositorios de OAN**
+
+Para utilizar **OAN** en el robot NAO, es necesario clonar e instalar los paquetes requeridos en un pc. Se utilizarán los paquetes de **OAN**, salvo los forks personalizados de algunos módulos específicos.
+
+#### **💻 Clonación de paquetes**
 
 A continuación, se muestran los repositorios que deben ser clonados en el workspace de ROS 2. Todos los paquetes deben ser instalados en la rama **rolling**, excepto en los casos donde no exista, donde se usará **main**. Una excepción es `audio_common`, que debe instalarse desde la rama **ros2**.
 
@@ -426,12 +433,13 @@ git clone --branch main https://github.com/andoniroldan/hni.git
 git clone --branch rolling https://github.com/andoniroldan/nao_lola.git
 git clone --branch main https://github.com/andoniroldan/nao_pos.git
 git clone --branch rolling https://github.com/andoniroldan/walk.git
+
 ```
 
 Para comprobar las ramas activas de todos los repositorios dentro del directorio src, se puede utilizar el siguiente comando optimizado:
 
 ```bash
-for repo in */.git; do echo "📂 Repo: ${repo%/.git}"; git -C "${repo%/.git}" status; echo ""; done
+for repo in */.git; do echo ""; echo "📂 Repo: ${repo%/.git}"; git -C "${repo%/.git}" status; echo ""; echo "Remote:"; git -C "${repo%/.git}" remote -v; echo ""; echo "-------------------------------------------------------------------------"; done
 ```
 
 #### **🛠 Instalación de dependencias**
@@ -441,18 +449,20 @@ Una vez clonados los paquetes, se deben instalar sus dependencias:
 ```bash
 cd ~/nao_ws
 rosdep update
-rosdep install --from-paths src --ignore-src -r -y
+rosdep install --from-paths src -r -y
 ```
 
 #### **🚀 Compilación e instalación**
 
-Compilar los paquetes usando `colcon` para generar los binarios necesarios (no utilizar `--symlink-install` para poder utilizar `sync` correctamente para clonar el directorio /install en el Nao):
+Compilar los paquetes usando `colcon` para generar los binarios necesarios (no utilizar `--symlink-install` para poder utilizar `sync` correctamente y clonar el directorio /install en el Nao):
 
 ```bash
 colcon build
 ```
 
-Finalmente, añadir el entorno a `bashrc` para que los paquetes estén disponibles en cada sesión (tanto en el pc como en el nao):
+Seguir los pasos del repositorio de Kenji Brameld con el objetivo de utilizar [sync](https://github.com/ijnek/sync) para cargar el workspace compilado en el nao.
+
+Finalmente, añadir el source al `bashrc` (tanto en el pc como en el nao):
 
 ```bash
 echo "source ~/nao_ws/install/setup.bash" >> ~/.bashrc
@@ -461,7 +471,7 @@ source ~/.bashrc
 
 ---
 
-### **🔄 ¿Por qué usar los forks personalizados?**
+#### **🔄 ¿Por qué usar los forks personalizados?**
 
 A continuación se explica por qué se han utilizado forks personalizados en lugar de los repositorios originales:
 
@@ -470,15 +480,36 @@ A continuación se explica por qué se han utilizado forks personalizados en lug
 - **nao\_lola (fork de ijnek)**:
   - `nao_command_msgs` renombrado a `nao_lola_command_msgs` para alinearse correctamente con el tipo de mensaje utilizado en todos los paquetes en rolling y en mis fork.
 - **nao\_pos (fork de antbono)**:
-  - *(Explicar razón del fork)*
-- **walk (fork de Kenji Brameld)**:
-  - *(Explicar razón del fork)*
+  - Cambio en los publicadores de las articulaciones (de `rclcpp::SensorDataQoS()` a  `rclcpp::QoS(100).best_effort()`), ya que el robot a veces daba tirones.
+- **walk (fork de ijnek)**:
+  - Fallos corregidos en algunos include en el repositorio original
 
 
+### Instalación y configuración del simulador Webots
 
+Para simular el Nao en un pc es necesario instalar el simulador **Webots** y clonar el repositorio [**WebotsLoLaController**](https://github.com/Bembelbots/WebotsLoLaController) de [bembelbots](https://bembelbots.de/) para utilizar el mundo con el Nao. Este repositorio contiene dos mundos que permiten la conexión con nao_lola como si fuera el robot real.
 
+Instalar Webots desde la [página oficial](https://cyberbotics.com/)
 
+Clonar el repositorio WebotsLoLaController:
 
+```bash
+git clone https://github.com/Bembelbots/WebotsLoLaController.git
+```
+Abrir Webots -> File -> Open World... -> Seleccionar un mundo de la carpeta worlds del repositorio WebotsLoLaController
+
+Lanzar nao_lola en una terminal como si estuvieras en el robot real
+```bash
+ros2 run nao_lola_client nao_lola_client
+```
+
+Debería aparecer en verde 'LoLa client connected' en la consola de Webots.
+
+<div id='primeros-pasos-y-pruebas-de-los-paquetes' />
+
+### 🤔 Primeros pasos y pruebas de los paquetes
+
+(Rellener)
 
 <div id='configuración-de-nav2' />
 
