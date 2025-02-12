@@ -401,6 +401,84 @@ El desarrollo de **OAN** ha sido posible gracias al esfuerzo de múltiples colab
 
 El trabajo conjunto de estos desarrolladores ha permitido que **OAN** se convierta en una plataforma confiable y robusta para la investigación y desarrollo del NAO en **ROS 2**. Gracias a estas contribuciones, **OAN** es actualmente una de las plataformas más completas para trabajar con el **NAO en ROS 2**.
 
+#### **Instalación de paquetes**
+
+Para utilizar **OAN** en el robot NAO, es necesario clonar e instalar los paquetes requeridos. Se utilizarán los paquetes de **OAN**, salvo los forks personalizados de algunos módulos específicos.
+
+#### 💻\*\* Clonación de paquetes\*\*
+
+A continuación, se muestran los repositorios que deben ser clonados en el workspace de ROS 2. Todos los paquetes deben ser instalados en la rama **rolling**, excepto en los casos donde no exista, donde se usará **main**. Una excepción es `audio_common`, que debe instalarse desde la rama **ros2**.
+
+```bash
+mkdir -p ~/nao_ws/src && cd ~/nao_ws/src
+
+# Clonar los repositorios de OAN
+git clone --branch rolling https://github.com/rolker/ament_cmake.git
+git clone --branch ros2 https://github.com/rolker/audio_common.git
+git clone --branch rolling https://github.com/ros-sports/biped_interfaces.git
+git clone --branch rolling https://github.com/ijnek/nao_ik.git
+git clone --branch main https://github.com/antbono/nao_led.git
+git clone --branch rolling https://github.com/ijnek/nao_phase_provider.git
+git clone --branch rolling https://github.com/ijnek/sole_poses_ims.git
+
+# Clonar los forks personalizados
+git clone --branch main https://github.com/andoniroldan/hni.git
+git clone --branch rolling https://github.com/andoniroldan/nao_lola.git
+git clone --branch main https://github.com/andoniroldan/nao_pos.git
+git clone --branch rolling https://github.com/andoniroldan/walk.git
+```
+
+Para comprobar las ramas activas de todos los repositorios dentro del directorio src, se puede utilizar el siguiente comando optimizado:
+
+```bash
+for repo in */.git; do echo "📂 Repo: ${repo%/.git}"; git -C "${repo%/.git}" status; echo ""; done
+```
+
+#### **🛠 Instalación de dependencias**
+
+Una vez clonados los paquetes, se deben instalar sus dependencias:
+
+```bash
+cd ~/nao_ws
+rosdep update
+rosdep install --from-paths src --ignore-src -r -y
+```
+
+#### **🚀 Compilación e instalación**
+
+Compilar los paquetes usando `colcon` para generar los binarios necesarios (no utilizar `--symlink-install` para poder utilizar `sync` correctamente para clonar el directorio /install en el Nao):
+
+```bash
+colcon build
+```
+
+Finalmente, añadir el entorno a `bashrc` para que los paquetes estén disponibles en cada sesión (tanto en el pc como en el nao):
+
+```bash
+echo "source ~/nao_ws/install/setup.bash" >> ~/.bashrc
+source ~/.bashrc
+```
+
+---
+
+### **🔄 ¿Por qué usar los forks personalizados?**
+
+A continuación se explica por qué se han utilizado forks personalizados en lugar de los repositorios originales:
+
+- **hni (fork de antbono)**:
+  - Paquete adaptado al español para mejorar la interacción del robot de rehabilitación de personas mayores, ubicado en el Laboratorio de Robótica y Sistemas Ubícuos de la Escuela de Ingeniería de Fuenlabrada (URJC). Se ha optimizado el uso de STT con OpenAI Whisper, ya que ofrece una mejor detección del español y un VAD más preciso y rápido para la generación de audios. Además, se han implementado mejoras en modelos de GPT más modernos, rápidos, eficientes y económicos. 
+- **nao\_lola (fork de ijnek)**:
+  - `nao_command_msgs` renombrado a `nao_lola_command_msgs` para alinearse correctamente con el tipo de mensaje utilizado en todos los paquetes en rolling y en mis fork.
+- **nao\_pos (fork de antbono)**:
+  - *(Explicar razón del fork)*
+- **walk (fork de Kenji Brameld)**:
+  - *(Explicar razón del fork)*
+
+
+
+
+
+
 
 <div id='configuración-de-nav2' />
 
