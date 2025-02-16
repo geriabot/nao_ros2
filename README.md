@@ -417,7 +417,7 @@ Para utilizar **OAN** en el robot NAO, es necesario clonar e instalar los paquet
 A continuación, se muestran los repositorios que deben ser clonados en el workspace de ROS 2. Todos los paquetes deben ser instalados en la rama **rolling**, excepto en los casos donde no exista, donde se usará **main**. Una excepción es `audio_common`, que debe instalarse desde la rama **ros2**.
 
 ```bash
-mkdir -p ~/nao_ws/src && cd ~/nao_ws/src
+mkdir -p nao_ws/src && cd nao_ws/src
 
 # Clonar los repositorios de OAN
 git clone --branch rolling https://github.com/rolker/ament_cmake.git
@@ -451,6 +451,13 @@ cd ~/nao_ws
 rosdep update
 rosdep install --from-paths src -r -y
 ```
+
+Además, instalar estas librerías:
+```bash
+sudo apt-get install libmsgpack-dev
+sudo apt-get install libignition-transport11-dev
+```
+
 
 #### **🚀 Compilación e instalación**
 
