@@ -420,7 +420,7 @@ A continuación, se muestran los repositorios que deben ser clonados en el works
 mkdir -p nao_ws/src && cd nao_ws/src
 
 # Clonar los repositorios de OAN
-git clone --branch rolling https://github.com/rolker/ament_cmake.git
+git clone --branch add_extend_existing_python https://github.com/rolker/ament_cmake.git
 git clone --branch ros2 https://github.com/rolker/audio_common.git
 git clone --branch rolling https://github.com/ros-sports/biped_interfaces.git
 git clone --branch rolling https://github.com/ijnek/nao_ik.git
