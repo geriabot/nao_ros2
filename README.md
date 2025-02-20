@@ -511,6 +511,33 @@ ros2 run nao_lola_client nao_lola_client
 
 Debería aparecer en verde 'LoLa client connected' en la consola de Webots.
 
+
+### 🔬 Simulación con Webots y Publicación de Cámaras en ROS 2  
+
+Se ha realizado una mejora en el simulador **Webots**, añadiendo una funcionalidad clave para mejorar la integración de visión artificial en ROS 2:  
+
+- **Publicación de la imagen de la cámara simulada del NAO en el topic `/image_raw`**  
+  - Permite utilizar herramientas como **YOLO** dentro del simulador, sin necesidad de emplear la cámara del ordenador.  
+  - Facilita la experimentación y pruebas de visión artificial sin necesidad del robot físico.  
+
+Para ello:  
+- Se ha creado un **fork de WebotsLoLaController**, en la rama [`ros2_camera_publish`](https://github.com/andoniroldan/WebotsLoLaController/tree/ros2_camera_publish), que:  
+  - Publica la imagen simulada en **ROS 2**.  
+  - Añade un objeto con una cara dentro del mundo del simulador (para probar detección con YOLO).
+
+- También se ha modificado **HNI**, en la rama [`simulation`](https://github.com/andoniroldan/hni/tree/simulation), para:  
+  - Evitar el uso de `usb_cam`, que podría interferir con la cámara simulada.  
+  - Ajustar el tratamiento de la imagen simulada para hacerla compatible con **YOLO**.  
+
+#### 🚀 **Cómo probar el seguimiento de caras en simulación**  
+1. **Iniciar Webots** desde un terminal (para que haga `source` de ROS 2).  
+2. Seleccionar el mundo **"nao_robocup"** en Webots.  
+3. Lanzar los **dos launchers de HNI** (como en la ejecución en el robot real).  
+
+Esto permitirá que el NAO simulado detecte y siga caras dentro del entorno virtual (presionar shift y arrastrar para mover el objeto de la cara humana)
+
+---
+
 <div id='primeros-pasos-y-pruebas-de-los-paquetes' />
 
 ### 🤔 Primeros pasos y pruebas de los paquetes
