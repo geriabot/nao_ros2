@@ -457,7 +457,15 @@ sudo apt-get install libmsgpack-dev
 sudo apt-get install libignition-transport11-dev
 pip install webrtcvad
 ```
-Es probable que haya que ajustar el volumen de los micrófonos del Nao con amixer (recomendable ponerlos al 90%)
+Es probable que haya que ajustar el volumen de los micrófonos del Nao con amixer (recomendable ponerlos al 90%):
+
+```bash
+sudo apt update && sudo apt install alsa-utils
+amixer set 'Numeric Left mics' 90% cap
+amixer set 'Numeric Right mics' 90% cap
+amixer set 'Analog Front mics' 90% cap
+amixer set 'Analog Rear mics' 90% cap
+```
 
 #### **🚀 Compilación e instalación**
 
