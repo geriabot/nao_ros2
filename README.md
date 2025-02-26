@@ -455,6 +455,7 @@ Además, instalar estas librerías:
 ```bash
 sudo apt-get install libmsgpack-dev
 sudo apt-get install libignition-transport11-dev
+pip install webrtcvad
 ```
 
 
