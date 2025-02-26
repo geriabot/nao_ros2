@@ -457,7 +457,7 @@ sudo apt-get install libmsgpack-dev
 sudo apt-get install libignition-transport11-dev
 pip install webrtcvad
 ```
-
+Es probable que haya que ajustar el volumen de los micrófonos del Nao con amixer (recomendable ponerlos al 90%)
 
 #### **🚀 Compilación e instalación**
 
