@@ -502,16 +502,22 @@ A continuación se explica por qué se han utilizado forks personalizados en lug
 
 ### Instalación y configuración del simulador Webots
 
-Para simular el Nao en un pc es necesario instalar el simulador **Webots** y clonar el repositorio [**WebotsLoLaController**](https://github.com/Bembelbots/WebotsLoLaController) de [bembelbots](https://bembelbots.de/) para utilizar el mundo con el Nao. Este repositorio contiene dos mundos que permiten la conexión con nao_lola como si fuera el robot real.
+Para simular el Nao en un pc es necesario instalar el simulador **Webots** y clonar mi fork del repositorio [**WebotsLoLaController**](https://github.com/andoniroldan/WebotsLoLaController.git) de [bembelbots](https://bembelbots.de/) para utilizar el mundo con el Nao. Este repositorio contiene dos mundos que permiten la conexión con nao_lola como si fuera el robot real.
 
 Instalar Webots desde la [página oficial](https://cyberbotics.com/)
 
-Clonar el repositorio WebotsLoLaController:
-
+Clonar el fork del repositorio WebotsLoLaController (rama ros2_camera_publish):
 ```bash
-git clone https://github.com/Bembelbots/WebotsLoLaController.git
+git clone -b ros2_camera_publish https://github.com/andoniroldan/WebotsLoLaController.git
 ```
-Abrir Webots -> File -> Open World... -> Seleccionar un mundo de la carpeta worlds del repositorio WebotsLoLaController
+
+Abrir Webots desde un terminal (hacer source de ros previamente):
+```bash
+source /opt/ros/rolling/setup.bash
+webots
+```
+
+Dentro de webots seleccionar File -> Open World... -> Seleccionar un mundo de la carpeta worlds del repositorio WebotsLoLaController (para usar ros2_camera_publish, WebotsLoLaController/worlds/nao_robocup.wbt)
 
 Lanzar nao_lola en una terminal como si estuvieras en el robot real
 ```bash
