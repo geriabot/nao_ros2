@@ -557,7 +557,50 @@ Esto permitirá que el NAO simulado detecte y siga caras dentro del entorno virt
 
 ### 🤔 Primeros pasos y pruebas de los paquetes
 
-(Rellener)
+# 🏃‍♂️ Uso del ModeSwitcher en Simulación
+
+El **ModeSwitcher** es un nodo de ROS 2 diseñado para gestionar el inicio y la detención de la locomoción del NAO, por ahora solo en simulación. Además de caminar, este sistema permite que el NAO hable e interactúe mediante gestos predefinidos, acercándose a un modelo más cognitivo y completo de interacción humano-robot (HNI). Con esta herramienta, el NAO no solo se desplaza y camina, sino que también responde y actúa en un entorno dinámico, mejorando la interacción con el usuario.
+
+## **1️⃣ Configuración previa**
+
+Antes de ejecutar el `mode_switcher`, es necesario definir la variable de entorno `NAO_WS_PATH`, que contiene la ruta de tu workspace de ROS 2:
+
+```bash
+export NAO_WS_PATH=/path_al_workspace  # Ajusta la ruta según corresponda
+```
+
+Para hacer que esta variable sea permanente, agrégala al final de tu archivo `~/.bashrc` y haz source:
+
+```bash
+echo "export NAO_WS_PATH=/path_al_workspace" >> ~/.bashrc
+source ~/.bashrc
+```
+
+## **2️⃣ Lanzamiento del ModeSwitcher**
+
+Para iniciar el nodo, ejecuta el siguiente comando en una terminal:
+
+```bash
+ros2 run hni_py mode_switcher
+```
+
+Este comando iniciará el nodo y activará el teleoperador, permitiéndote controlar los modos y el movimiento del NAO.
+
+## **3️⃣ Modos de operación**
+
+- **Caminar:** Mantén presionadas las teclas del teleoperador que se abre automáticamente. El modo cambiará a **walk**, el robot se preparará y comenzará a andar.
+- **Detenerse:** Mantén presionada la tecla `k` para detener el **walk** y volver al modo interactivo.
+- **Modo interactivo:** Cuando el NAO está detenido, puedes interactuar con él a través de la terminal **x-term** que se abre automáticamente. Para hablar con el NAO, presiona `Enter` en esa terminal y háblale. Cada vez que quieras decirle algo, debes repetir este proceso. Es recomendable esperar a que termine de hablar para evitar solapar voces y ajustar el volumen del micrófono a un nivel bastante bajo para que el reconocimiento de voz funcione correctamente.
+- **Gestos y animaciones:** El NAO puede realizar ciertos gestos predefinidos como **decir hola, bailar o hacer el gesto de grande**. Estos gestos se activan cuando el NAO los menciona en su respuesta, por lo que puedes pedirle que los realice hablándole.
+- Este sistema cuenta con una función que permite al NAO levantarse automáticamente en caso de caída, utilizando los datos de sus sensores de aceleración para detectarlo. No obstante, aunque los gestos funcionan correctamente en el mundo real, en el simulador el proceso de levantarse puede presentar dificultades y no ejecutarse con la misma precisión.
+
+> **Nota:** Es recomendable mantener las teclas presionadas en **teleop** para lograr un control más preciso del movimiento. Este sistema ha sido diseñado para garantizar compatibilidad con **Nav2** en futuras implementaciones.
+
+## **4️⃣ Detención del ModeSwitcher**
+
+Para detener el nodo, presiona `Ctrl + C` en la terminal donde lo ejecutaste y cierra todas las ventanas.
+
+Con este sistema, el NAO no solo camina, sino que también mejora la interacción con el usuario, avanzando hacia un modelo más natural e intuitivo de interacción robot-humano.
 
 <div id='configuración-de-nav2' />
 
