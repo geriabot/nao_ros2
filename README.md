@@ -491,13 +491,16 @@ source ~/.bashrc
 A continuación se explica por qué se han utilizado forks personalizados en lugar de los repositorios originales:
 
 - **hni (fork de antbono)**:
-  - Paquete adaptado al español para mejorar la interacción del robot de rehabilitación de personas mayores, ubicado en el Laboratorio de Robótica y Sistemas Ubícuos de la Escuela de Ingeniería de Fuenlabrada (URJC). Se ha optimizado el uso de STT con OpenAI Whisper, ya que ofrece una mejor detección del español y un VAD más preciso y rápido para la generación de audios. Además, se han implementado mejoras en modelos de GPT más modernos, rápidos, eficientes y económicos. 
+  - Paquete adaptado al español para mejorar la interacción del robot de rehabilitación de personas mayores, ubicado en el Laboratorio de Robótica y Sistemas Ubícuos de la Escuela de Ingeniería de Fuenlabrada (URJC). Se ha optimizado el uso de STT con OpenAI Whisper, ya que ofrece una mejor detección del español y un VAD más preciso y rápido para la generación de audios. Además, se han implementado mejoras en modelos de GPT más modernos, rápidos, eficientes y económicos.
+  - Mode switcher añadido para combinar el walk y el speech. 
 - **nao\_lola (fork de ijnek)**:
   - `nao_command_msgs` renombrado a `nao_lola_command_msgs` para alinearse correctamente con el tipo de mensaje utilizado en todos los paquetes en rolling y en mis fork.
 - **nao\_pos (fork de antbono)**:
   - Cambio en los publicadores de las articulaciones (de `rclcpp::SensorDataQoS()` a  `rclcpp::QoS(100).best_effort()`), ya que el robot a veces daba tirones.
 - **walk (fork de ijnek)**:
   - Fallos corregidos en algunos include en el repositorio original
+  - Añadida detección de caídas para detener el walk y levantarse automáticamente.
+  - Lógica para coordinar el walk y el modo speech.
 
 
 ### Instalación y configuración del simulador Webots
@@ -578,7 +581,7 @@ source ~/.bashrc
 
 ## **2️⃣ Lanzamiento del ModeSwitcher**
 
-Para iniciar el nodo, ejecuta el siguiente comando en una terminal:
+Para iniciar el nodo asegurate de estar en la rama simulation en el repositorio hni, compila y haz source. Abre webots en el mundo del nao y ejecuta el siguiente comando en una terminal:
 
 ```bash
 ros2 run hni_py mode_switcher
@@ -601,6 +604,79 @@ Este comando iniciará el nodo y activará el teleoperador, permitiéndote contr
 Para detener el nodo, presiona `Ctrl + C` en la terminal donde lo ejecutaste y cierra todas las ventanas.
 
 Con este sistema, el NAO no solo camina, sino que también mejora la interacción con el usuario, avanzando hacia un modelo más natural e intuitivo de interacción robot-humano.
+
+# 🤖 Uso del ModeSwitcher en el Robot Real
+
+El **ModeSwitcher** es un sistema distribuido que gestiona el inicio y la detención de la locomoción del NAO, esta vez en el mundo real. Además de caminar, este sistema permite que el NAO hable, siga rostros y realice gestos predefinidos, acercándose a un modelo más cognitivo y completo de interacción humano-robot (HNI). Con esta herramienta, el NAO no solo se desplaza de forma real en el entorno, sino que también responde e interactúa con los usuarios de manera segura y natural.
+
+## **1️⃣ Configuración previa**
+
+Antes de ejecutar el `mode_switcher_nao` o `mode_switcher_pc`, es necesario definir la variable de entorno `NAO_WS_PATH`, que contiene la ruta de tu workspace de ROS 2 (hazlo tanto en el pc como en el nao):
+
+```bash
+export NAO_WS_PATH=/path_al_workspace  # Ajusta la ruta según corresponda
+```
+
+Para hacer que esta variable sea permanente, agrégala al final de tu archivo `~/.bashrc` y haz source:
+
+```bash
+echo "export NAO_WS_PATH=/path_al_workspace" >> ~/.bashrc
+source ~/.bashrc
+```
+
+## **2️⃣ Lanzamiento del ModeSwitcher**
+
+Antes de iniciar los nodos, asegúrate de estar en la rama `main` del repositorio `hni`, compilar el workspace y hacer `source` del entorno.
+
+Luego, sincroniza la compilación al robot NAO usando el script `sync.sh`, que permite copiar tu workspace ya compilado al robot de forma rápida mediante SSH.
+
+Ubícate dentro del workspace que deseas sincronizar y ejecuta:
+
+```bash
+./sync.sh nao <ip_nao>
+```
+
+Este comando actualizará automáticamente el entorno del robot con la última compilación realizada en tu PC.
+
+
+
+Antes de lanzar el nodo en el NAO, asegúrate de hacer `source` del entorno compilado en el robot para que ROS 2 reconozca los ejecutables:
+
+```bash
+source ~/nao_ws/install/setup.bash
+```
+
+
+
+Para lanzar el ModeSwitcher, primero debes iniciar el nodo en el **robot NAO** con el siguiente comando:
+
+```bash
+ros2 run hni_py mode_switcher_nao
+```
+
+Luego, en el **PC**, lanza el nodo correspondiente:
+
+```bash
+ros2 run hni_py mode_switcher_pc
+```
+
+Esto activará el sistema completo de locomoción e interacción.
+
+## **3️⃣ Modos de operación**
+
+- **Caminar:** Mantén presionadas las teclas del teleoperador que se abre automáticamente en el pc. El modo cambiará a **walk**, el robot se preparará y comenzará a andar.
+- **Detenerse:** Mantén presionada la tecla `k` para detener el **walk** y volver al modo interactivo.
+- **Modo interactivo:** Cuando el NAO está detenido, puedes interactuar con él a través de la terminal **x-term** que se abre automáticamente en el pc. Para hablar con el NAO, presiona `Enter` en esa terminal y háblale. Cada vez que quieras decirle algo, debes repetir este proceso.
+- **Gestos y animaciones:** El NAO puede realizar ciertos gestos predefinidos como **decir hola, bailar o hacer el gesto de grande**. Estos gestos se activan cuando el NAO los menciona en su respuesta, por lo que puedes pedirle que los realice hablándole.
+- **Seguridad mejorada:** En el mundo real, el sistema de locomoción cuenta con mecanismos de seguridad adicionales. Si el robot **cae**, detecta la caída con sensores de aceleración y se levanta automáticamente. Además, si los **sensores de presión** de los pies no detectan contacto con el suelo, el robot detiene el movimiento de inmediato para evitar accidentes.
+
+> **Nota:** Es recomendable mantener las teclas presionadas en **teleop** para lograr un control más preciso del movimiento. Este sistema ha sido diseñado para garantizar compatibilidad con **Nav2** en futuras implementaciones.
+
+## **4️⃣ Detención del ModeSwitcher**
+
+Para detener los nodos, presiona `Ctrl + C` tanto en el NAO como en el PC, y cierra todas las ventanas abiertas.
+
+Con este sistema, el NAO no solo camina de forma real, sino que también mejora la interacción con el usuario, avanzando hacia un modelo más natural, seguro e intuitivo de interacción robot-humano.
 
 <div id='configuración-de-nav2' />
 
