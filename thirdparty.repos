@@ -1,0 +1,41 @@
+repositories:
+    thirdparty/audio_common:
+        type: git
+        url: https://github.com/rolker/audio_common.git
+        version: ros2
+    thirdparty/biped_interfaces:
+        type: git
+        url: https://github.com/ros-sports/biped_interfaces.git
+        version: rolling
+    thirdparty/nao_ik:
+        type: git
+        url: https://github.com/ijnek/nao_ik.git
+        version: rolling
+    thirdparty/nao_led:
+        type: git
+        url: https://github.com/antbono/nao_led.git
+        version: main
+    thirdparty/nao_phase_provider:
+        type: git
+        url: https://github.com/ijnek/nao_phase_provider.git
+        version: rolling
+    thirdparty/sole_poses_ims:
+        type: git
+        url: https://github.com/ijnek/sole_poses_ims.git
+        version: rolling
+    thirdparty/hni:
+        type: git
+        url: https://github.com/andoniroldan/hni.git
+        version: main
+    thirdparty/nao_lola:
+        type: git
+        url: https://github.com/andoniroldan/nao_lola.git
+        version: rolling
+    thirdparty/nao_pos:
+        type: git
+        url: https://github.com/andoniroldan/nao_pos.git
+        version: main
+    thirdparty/walk:
+        type: git
+        url: https://github.com/andoniroldan/walk.git
+        version: rolling

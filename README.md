@@ -21,7 +21,7 @@
 
 <div id='introducción' />
   
-## Introducción
+sud## Introducción
 
 El objetivo de este repositorio es documentar de manera clara y unificada el proceso de instalación y configuración de **Ubuntu 22.04** y **ROS 2** en el robot **Nao**. Actualmente, la información sobre este procedimiento está altamente distribuida y mal documentada, lo que dificulta su implementación. **nao_ros2** busca solucionar este problema proporcionando una guía completa y estructurada.
 
@@ -414,24 +414,9 @@ Para utilizar **OAN** en el robot NAO, es necesario clonar e instalar los paquet
 
 #### **💻 Clonación de paquetes**
 
-A continuación, se muestran los repositorios que deben ser clonados en el workspace de ROS 2. Todos los paquetes deben ser instalados en la rama **rolling**, excepto en los casos donde no exista, donde se usará **main**. Una excepción es `audio_common`, que debe instalarse desde la rama **ros2**.
-
 ```bash
-mkdir -p nao_ws/src && cd nao_ws/src
-
-# Clonar los repositorios de OAN
-git clone --branch ros2 https://github.com/rolker/audio_common.git
-git clone --branch rolling https://github.com/ros-sports/biped_interfaces.git
-git clone --branch rolling https://github.com/ijnek/nao_ik.git
-git clone --branch main https://github.com/antbono/nao_led.git
-git clone --branch rolling https://github.com/ijnek/nao_phase_provider.git
-git clone --branch rolling https://github.com/ijnek/sole_poses_ims.git
-
-# Clonar los forks personalizados
-git clone --branch main https://github.com/andoniroldan/hni.git
-git clone --branch rolling https://github.com/andoniroldan/nao_lola.git
-git clone --branch main https://github.com/andoniroldan/nao_pos.git
-git clone --branch rolling https://github.com/andoniroldan/walk.git
+mkdir -p nao_ws/srr
+vcs import src < thirdparty.repos --recursive
 
 ```
 
@@ -469,11 +454,13 @@ amixer set 'Analog Rear mics' 90% cap
 
 #### **🚀 Compilación e instalación**
 
-Compilar los paquetes usando `colcon` para generar los binarios necesarios (no utilizar `--symlink-install` para poder utilizar `sync` correctamente y clonar el directorio /install en el Nao):
+Compilar los paquetes usando `colcon` para generar los binarios necesarios :
 
 ```bash
 colcon build
 ```
+
+**IMPORTANTE**: No compilar utilizando la opción `--symlink-install` para poder utilizar posteriormente `sync` para llevar el directorio /install al robot Nao
 
 Seguir los pasos del repositorio de Kenji Brameld con el objetivo de utilizar [sync](https://github.com/ijnek/sync) para cargar el workspace compilado en el nao.
 
