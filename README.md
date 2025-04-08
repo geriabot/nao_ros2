@@ -312,7 +312,7 @@ Instalar ROS 2 Rolling en el **PC** (version de escritorio, con entorno gráfico
 ```bash
 sudo apt install ros-rolling-desktop
 ```
-Este paquete inclute además:
+Este paquete incluye además:
 - Herramientas de visualización como RViz
 - Simulador Gazebo (dependiendo de la versión)
 - Soporte para rqt y sus complementos
@@ -483,7 +483,7 @@ A continuación se explica por qué se han utilizado forks personalizados en lug
 - **nao\_lola (fork de ijnek)**:
   - `nao_command_msgs` renombrado a `nao_lola_command_msgs` para alinearse correctamente con el tipo de mensaje utilizado en todos los paquetes en rolling y en mis fork.
 - **nao\_pos (fork de antbono)**:
-  - Cambio en los publicadores de las articulaciones (de `rclcpp::SensorDataQoS()` a  `rclcpp::QoS(100).best_effort()`), ya que el robot a veces daba tirones.
+  - Se han realizado mejoras en la sincronización del inicio del robot, incorporación de nuevos gestos, compatibilidad y suscripción al estado de walk para optimizar su comportamiento.
 - **walk (fork de ijnek)**:
   - Fallos corregidos en algunos include en el repositorio original
   - Añadida detección de caídas para detener el walk y levantarse automáticamente.
@@ -537,7 +537,7 @@ Para ello:
 #### 🚀 **Cómo probar el seguimiento de caras en simulación**  
 1. **Iniciar Webots** desde un terminal (para que haga `source` de ROS 2).  
 2. Seleccionar el mundo **"nao_robocup"** en Webots.  
-3. Lanzar los **dos launchers de HNI** (como en la ejecución en el robot real).  
+3. Lanzar los **dos experiment launchers de HNI** (como en la ejecución en el robot real).  
 
 Esto permitirá que el NAO simulado detecte y siga caras dentro del entorno virtual (presionar shift y arrastrar para mover el objeto de la cara humana)
 
@@ -549,7 +549,7 @@ Esto permitirá que el NAO simulado detecte y siga caras dentro del entorno virt
 
 # 🏃‍♂️ Uso del ModeSwitcher en Simulación
 
-El **ModeSwitcher** es un nodo de ROS 2 diseñado para gestionar el inicio y la detención de la locomoción del NAO, por ahora solo en simulación. Además de caminar, este sistema permite que el NAO hable e interactúe mediante gestos predefinidos, acercándose a un modelo más cognitivo y completo de interacción humano-robot (HNI). Con esta herramienta, el NAO no solo se desplaza y camina, sino que también responde y actúa en un entorno dinámico, mejorando la interacción con el usuario.
+El **ModeSwitcher** es un nodo de ROS 2 diseñado para gestionar el inicio y la detención de la locomoción del NAO. Además de caminar, este sistema permite que el NAO hable e interactúe mediante gestos predefinidos, acercándose a un modelo más cognitivo y completo de interacción humano-robot (HNI). Con esta herramienta, el NAO no solo se desplaza y camina, sino que también responde y actúa en un entorno dinámico, mejorando la interacción con el usuario.
 
 ## **1️⃣ Configuración previa**
 
