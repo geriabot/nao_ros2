@@ -31,7 +31,7 @@ class CameraConversionNode(Node):
         self.image_pub = self.create_publisher(Image, '/image_rgb', 10)
         self.camera_info_pub = self.create_publisher(CameraInfo, '/camera_rgb_info', 10)
 
-        # Sample calibration values (replace with real values in the laboratory)
+        # Calibration values for nao camera
         self.camera_info = CameraInfo()
         self.camera_info.width = 640
         self.camera_info.height = 480

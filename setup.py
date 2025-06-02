@@ -13,6 +13,9 @@ setup(
             'launch/mode_switcher_nao_launch.py',
             'launch/mode_switcher_pc_launch.py',
             'launch/nao_description_launch.py',
+            'launch/pointcloud2laserscan_launch.py',
+            'launch/imu_ekf_launch.py',
+            'launch/controller_joy_launch.py',
         ]),
     ],
     install_requires=['setuptools'],
@@ -26,6 +29,10 @@ setup(
         'console_scripts': [
             'mode_switcher_nao = nao_ros2.mode_switcher_nao:main',
             'camera_conversion_node = nao_ros2.camera_conversion_node:main',
+            'nao_imu_odometry = nao_ros2.nao_imu_odometry:main',
+            'imu_transformer = nao_ros2.imu_transformer:main',
+            'imu_comparer = nao_ros2.imu_comparer:main',
+            'nao_walk_odometry = nao_ros2.nao_walk_odometry:main',
         ],
     },
 )
