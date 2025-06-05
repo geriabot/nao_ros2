@@ -415,7 +415,7 @@ Para utilizar **OAN** en el robot NAO, es necesario clonar e instalar los paquet
 #### **💻 Clonación de paquetes**
 
 ```bash
-mkdir -p nao_ws/srr
+mkdir -p nao_ws/src
 vcs import src < thirdparty.repos --recursive
 
 ```
