@@ -357,7 +357,7 @@ La motivación detrás de OAN radica en la necesidad de contar con herramientas 
 
 El ecosistema de OAN está compuesto por múltiples paquetes interconectados, cada uno con una función específica dentro del sistema. A continuación, se detallan los principales paquetes y sus funciones:
 
-1. **HNI (Human-Nao Interaction)**
+1. **HRI (Human-Robot Interaction)**
    - Funciona como un middleware central que facilita la comunicación entre diferentes módulos del sistema.
    - Optimiza la interacción entre los paquetes de percepción, locomoción y control del NAO, garantizando una integración fluida y coordinada.
 
@@ -397,7 +397,7 @@ El ecosistema de OAN está compuesto por múltiples paquetes interconectados, ca
 
 El desarrollo de **OAN** ha sido posible gracias al esfuerzo de múltiples colaboradores, con especial reconocimiento a **Antonio Bono (antbono)** y **Kenji Brameld (ijnek)**. 
 
-- **Antonio Bono (antbono)** ha liderado la integración de **NAO con ROS 2**, estableciendo una base sólida para el Human Robot Interaction (HNI) en el NAO.
+- **Antonio Bono (antbono)** ha liderado la integración de **NAO con ROS 2**, estableciendo una base sólida para el Human Robot Interaction (HRI) en el NAO.
 - **Kenji Brameld (ijnek)** ha realizado contribuciones esenciales para la locomoción y la sincronización de workspaces.
 
 El trabajo conjunto de estos desarrolladores ha permitido que **OAN** se convierta en una plataforma confiable y robusta para la investigación y desarrollo del NAO en **ROS 2**. Gracias a estas contribuciones, **OAN** es actualmente una de las plataformas más completas para trabajar con el **NAO en ROS 2**.
@@ -477,7 +477,7 @@ source ~/.bashrc
 
 A continuación se explica por qué se han utilizado forks personalizados en lugar de los repositorios originales:
 
-- **hni (fork de antbono)**:
+- **nao_hri (fork de de antbono/hni)**:
   - Paquete adaptado al español para mejorar la interacción del robot de rehabilitación de personas mayores, ubicado en el Laboratorio de Robótica y Sistemas Ubícuos de la Escuela de Ingeniería de Fuenlabrada (URJC). Se ha optimizado el uso de STT con OpenAI Whisper, ya que ofrece una mejor detección del español y un VAD más preciso y rápido para la generación de audios. Además, se han implementado mejoras en modelos de GPT más modernos, rápidos, eficientes y económicos.
   - Mode switcher añadido para combinar el walk y el speech. 
 - **nao\_lola (fork de ijnek)**:
@@ -530,14 +530,14 @@ Para ello:
   - Publica la imagen simulada en **ROS 2**.  
   - Añade un objeto con una cara dentro del mundo del simulador (para probar detección con YOLO).
 
-- También se ha modificado **HNI**, en la rama [`simulation`](https://github.com/andoniroldan/hni/tree/simulation), para:  
+- También se ha modificado **HRI**, en la rama [`simulation`](https://github.com/geriabot/nao_hri/tree/simulation), para:  
   - Evitar el uso de `usb_cam`, que podría interferir con la cámara simulada.  
   - Ajustar el tratamiento de la imagen simulada para hacerla compatible con **YOLO**.  
 
 #### 🚀 **Cómo probar el seguimiento de caras en simulación**  
 1. **Iniciar Webots** desde un terminal (para que haga `source` de ROS 2).  
 2. Seleccionar el mundo **"nao_robocup"** en Webots.  
-3. Lanzar los **dos experiment launchers de HNI** (como en la ejecución en el robot real).  
+3. Lanzar los **dos experiment launchers de nao_hri** (como en la ejecución en el robot real).  
 
 Esto permitirá que el NAO simulado detecte y siga caras dentro del entorno virtual (presionar shift y arrastrar para mover el objeto de la cara humana)
 
@@ -549,7 +549,7 @@ Esto permitirá que el NAO simulado detecte y siga caras dentro del entorno virt
 
 # 🏃‍♂️ Uso del ModeSwitcher en Simulación
 
-El **ModeSwitcher** es un nodo de ROS 2 diseñado para gestionar el inicio y la detención de la locomoción del NAO. Además de caminar, este sistema permite que el NAO hable e interactúe mediante gestos predefinidos, acercándose a un modelo más cognitivo y completo de interacción humano-robot (HNI). Con esta herramienta, el NAO no solo se desplaza y camina, sino que también responde y actúa en un entorno dinámico, mejorando la interacción con el usuario.
+El **ModeSwitcher** es un nodo de ROS 2 diseñado para gestionar el inicio y la detención de la locomoción del NAO. Además de caminar, este sistema permite que el NAO hable e interactúe mediante gestos predefinidos, acercándose a un modelo más cognitivo y completo de interacción humano-robot (HRI). Con esta herramienta, el NAO no solo se desplaza y camina, sino que también responde y actúa en un entorno dinámico, mejorando la interacción con el usuario.
 
 ## **1️⃣ Configuración previa**
 
@@ -594,7 +594,7 @@ Con este sistema, el NAO no solo camina, sino que también mejora la interacció
 
 # 🤖 Uso del ModeSwitcher en el Robot Real
 
-El **ModeSwitcher** es un sistema distribuido que gestiona el inicio y la detención de la locomoción del NAO, esta vez en el mundo real. Además de caminar, este sistema permite que el NAO hable, siga rostros y realice gestos predefinidos, acercándose a un modelo más cognitivo y completo de interacción humano-robot (HNI). Con esta herramienta, el NAO no solo se desplaza de forma real en el entorno, sino que también responde e interactúa con los usuarios de manera segura y natural.
+El **ModeSwitcher** es un sistema distribuido que gestiona el inicio y la detención de la locomoción del NAO, esta vez en el mundo real. Además de caminar, este sistema permite que el NAO hable, siga rostros y realice gestos predefinidos, acercándose a un modelo más cognitivo y completo de interacción humano-robot (HRI). Con esta herramienta, el NAO no solo se desplaza de forma real en el entorno, sino que también responde e interactúa con los usuarios de manera segura y natural.
 
 ## **1️⃣ Configuración previa**
 
@@ -613,7 +613,7 @@ source ~/.bashrc
 
 ## **2️⃣ Lanzamiento del ModeSwitcher**
 
-Antes de iniciar los nodos, asegúrate de estar en la rama `main` del repositorio `hni`, compilar el workspace y hacer `source` del entorno.
+Antes de iniciar los nodos, asegúrate de clonar este repositorio (`nao_ros2`), compilar el workspace y hacer `source` del entorno.
 
 Luego, sincroniza la compilación al robot NAO usando el script `sync.sh`, que permite copiar tu workspace ya compilado al robot de forma rápida mediante SSH.
 
@@ -635,16 +635,16 @@ source ~/nao_ws/install/setup.bash
 
 
 
-Para lanzar el ModeSwitcher, primero debes iniciar el nodo en el **robot NAO** con el siguiente comando:
+Para lanzar el ModeSwitcher, primero debes lanzar el launcher en el **robot Nao** con el siguiente comando:
 
 ```bash
-ros2 run hni_py mode_switcher_nao
+ros2 launch nao_ros2 mode_switcher_nao_launch.py
 ```
 
-Luego, en el **PC**, lanza el nodo correspondiente:
+Luego, en el **PC**, lanza el launcher correspondiente:
 
 ```bash
-ros2 run hni_py mode_switcher_pc
+ros2 launch nao_ros2 mode_switcher_pc_launch.py
 ```
 
 Esto activará el sistema completo de locomoción e interacción.
