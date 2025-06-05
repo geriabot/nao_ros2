@@ -23,9 +23,9 @@ repositories:
         type: git
         url: https://github.com/ijnek/sole_poses_ims.git
         version: rolling
-    thirdparty/hni:
+    thirdparty/nao_hri:
         type: git
-        url: https://github.com/andoniroldan/hni.git
+        url: https://github.com/geriabot/nao_hri.git
         version: main
     thirdparty/nao_lola:
         type: git
