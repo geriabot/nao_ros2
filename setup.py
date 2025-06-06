@@ -16,6 +16,7 @@ setup(
             'launch/pointcloud2laserscan_launch.py',
             'launch/imu_ekf_launch.py',
             'launch/controller_joy_launch.py',
+            'launch/nao_odometry_launch.py',
         ]),
     ],
     install_requires=['setuptools'],
