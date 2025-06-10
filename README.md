@@ -79,7 +79,7 @@ Para instalar Ubuntu en el robot Nao V6, se debe seguir un proceso que involucra
    sudo ./generate_image.sh {imagen_de_ubuntu.opn} image.ext3 ubuntu
 
    # Convertir la imagen generada a formato .opn
-   ./generate_opn.sh image.ext3 image.opn
+   sudo ./generate_opn.sh image.ext3 image.opn
    ```
 
 ---
