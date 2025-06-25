@@ -219,7 +219,7 @@ Una vez conectado por **SSH**, se debe configurar `netplan` para que el robot se
          addresses:
            - 192.168.1.120/24  # Dirección para Wi-Fi (Ajustar al gusto)
    ```
-3. Aplicar la nueva configuración de red:  
+3. Aplicar la nueva configuración de red (no preocuparse por el warning):  
    ```bash
    sudo netplan apply
    ```
