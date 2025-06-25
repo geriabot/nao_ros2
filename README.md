@@ -638,13 +638,13 @@ source ~/nao_ws/install/setup.bash
 
 
 
-Para lanzar el ModeSwitcher, primero debes lanzar el launcher en el **robot Nao** con el siguiente comando:
+Para lanzar el ModeSwitcher, primero debes lanzar el launcher en el **robot Nao** con el siguiente comando (asegurate de estar en el directorio nao_ws):
 
 ```bash
 ros2 launch nao_ros2 mode_switcher_nao_launch.py
 ```
 
-Luego, en el **PC**, lanza el launcher correspondiente:
+Luego, en el **PC**, lanza el launcher correspondiente (asegurate de estar en el directorio nao_ws):
 
 ```bash
 ros2 launch nao_ros2 mode_switcher_pc_launch.py
