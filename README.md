@@ -436,11 +436,12 @@ rosdep update
 rosdep install --from-paths src -r -y
 ```
 
-Además, instalar estas librerías:
+Además, instalar estas librerías (tanto en el PC como en el NAO):
 ```bash
 sudo apt-get install libmsgpack-dev
 sudo apt-get install libignition-transport11-dev
 pip install webrtcvad
+pip install sounddevice
 ```
 
 ---
@@ -473,7 +474,7 @@ amixer set 'Numeric Left mics' 90% cap
 amixer set 'Numeric Right mics' 90% cap
 amixer set 'Analog Front mics' 90% cap
 amixer set 'Analog Rear mics' 90% cap
-```
+``` 
 
 #### **🔄 ¿Por qué usar los forks personalizados?**
 
