@@ -442,15 +442,8 @@ sudo apt-get install libmsgpack-dev
 sudo apt-get install libignition-transport11-dev
 pip install webrtcvad
 ```
-Es probable que haya que ajustar el volumen de los micrófonos del Nao con amixer (recomendable ponerlos al 90%):
 
-```bash
-sudo apt update && sudo apt install alsa-utils
-amixer set 'Numeric Left mics' 90% cap
-amixer set 'Numeric Right mics' 90% cap
-amixer set 'Analog Front mics' 90% cap
-amixer set 'Analog Rear mics' 90% cap
-```
+---
 
 #### **🚀 Compilación e instalación**
 
@@ -470,8 +463,17 @@ Finalmente, añadir el source al `bashrc` (tanto en el pc como en el nao):
 echo "source ~/nao_ws/install/setup.bash" >> ~/.bashrc
 source ~/.bashrc
 ```
-
 ---
+
+**Recomendación en el NAO:** Es probable que haya que ajustar el volumen de los micrófonos del Nao con amixer (recomendable ponerlos al 90%):
+
+```bash
+sudo apt update && sudo apt install alsa-utils
+amixer set 'Numeric Left mics' 90% cap
+amixer set 'Numeric Right mics' 90% cap
+amixer set 'Analog Front mics' 90% cap
+amixer set 'Analog Rear mics' 90% cap
+```
 
 #### **🔄 ¿Por qué usar los forks personalizados?**
 
