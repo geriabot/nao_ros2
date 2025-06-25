@@ -281,7 +281,7 @@ Actualizar el sistema antes de instalar ROS 2:
 sudo apt update && sudo apt upgrade -y
 ```
 
-**Opcional:** Instalar herramientas de desarrollo de ROS:
+Instalar herramientas de desarrollo de ROS:
 
 ```bash
 sudo apt install ros-dev-tools
