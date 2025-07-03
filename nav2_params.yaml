@@ -1,0 +1,119 @@
+amcl:
+  ros__parameters:
+    use_map_topic: true
+    first_map_only: false
+    scan_topic: /scan
+    min_particles: 500
+    max_particles: 2000
+    alpha1: 0.2
+    alpha2: 0.2
+    alpha3: 0.2
+    alpha4: 0.2
+    alpha5: 0.2
+    base_frame_id: base_link
+    odom_frame_id: odom
+    odom_topic: /odometry/filtered
+    global_frame_id: map
+    resample_interval: 1
+    transform_tolerance: 1.0
+    recovery_alpha_slow: 0.0
+    recovery_alpha_fast: 0.0
+    update_min_d: 0.25
+    update_min_a: 0.2
+
+map_server:
+  ros__parameters:
+    yaml_filename: "/home/andoni/mi_mapa.yaml"
+
+bt_navigator:
+  ros__parameters:
+    use_sim_time: false
+
+planner_server:
+  ros__parameters:
+    use_sim_time: false
+    expected_planner_frequency: 1.0
+
+recoveries_server:
+  ros__parameters:
+    use_sim_time: false
+
+local_costmap:
+  ros__parameters:
+    robot_base_frame: base_link
+    footprint: "[[0.2, 0.2], [0.2, -0.2], [-0.2, -0.2], [-0.2, 0.2]]"
+    resolution: 0.05
+    publish_frequency: 2.0
+    global_frame: odom
+    robot_radius: 0.25
+    plugins: ["obstacle_layer", "inflation_layer"]
+
+global_costmap:
+  ros__parameters:
+    robot_base_frame: base_link
+    footprint: "[[0.2, 0.2], [0.2, -0.2], [-0.2, -0.2], [-0.2, 0.2]]"
+    resolution: 0.05
+    publish_frequency: 2.0
+    global_frame: map
+    robot_radius: 0.25
+    plugins: ["static_layer", "obstacle_layer", "inflation_layer"]
+
+controller_server:
+  ros__parameters:
+    use_sim_time: false
+    controller_frequency: 10.0
+    cmd_vel_topic: "/target" 
+    FollowPath:
+      plugin: "dwb_core::DWBLocalPlanner"
+      debug_trajectory_details: true
+      min_vel_x: 0.0
+      max_vel_x: 0.26
+      min_vel_y: 0.0
+      max_vel_y: 0.0
+      max_vel_theta: 1.0
+      min_speed_xy: 0.0
+      max_speed_xy: 0.26
+      acc_lim_x: 2.5
+      acc_lim_y: 0.0
+      acc_lim_theta: 3.2
+      decel_lim_x: -2.5
+      decel_lim_y: 0.0
+      decel_lim_theta: -3.2
+      vx_samples: 20
+      vy_samples: 5
+      vtheta_samples: 20
+      sim_time: 1.7
+      linear_granularity: 0.05
+      angular_granularity: 0.025
+      transform_tolerance: 0.2
+      xy_goal_tolerance: 0.25
+      trans_stopped_velocity: 0.25
+      short_circuit_trajectory_evaluation: true
+      stateful: true
+      critics: ["RotateToGoal", "Oscillation", "BaseObstacle", "GoalAlign", "PathAlign", "PathDist", "GoalDist"]
+      RotateToGoal:
+        scale: 32.0
+      GoalAlign:
+        scale: 24.0
+      PathAlign:
+        scale: 32.0
+      PathDist:
+        scale: 32.0
+      GoalDist:
+        scale: 24.0
+      Oscillation:
+        scale: 1.0
+      BaseObstacle:
+        scale: 0.02
+        sum_scores: true
+
+slam_toolbox:
+  ros__parameters:
+    use_sim_time: false
+    scan_topic: /scan
+    odom_frame: odom
+    odom_topic: /odometry/filtered
+    base_frame: base_link
+    map_frame: map
+    mode: "mapping"
+
