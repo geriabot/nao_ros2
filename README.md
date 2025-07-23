@@ -36,6 +36,12 @@ A lo largo de este repositorio, se detallarán los pasos necesarios para:
 
 Este repositorio está dirigido a desarrolladores, investigadores y entusiastas de la robótica que deseen modernizar y optimizar las capacidades del robot **Nao** utilizando tecnologías de código abierto.
 
+---
+
+## Vídeos de ejemplo
+
+Puedes encontrar los **vídeos de ejemplo** del proyecto en el siguiente canal de YouTube: [Robot Nao en ROS2](https://www.youtube.com/@RobotNaoenROS2)
+
  
 ---
 
