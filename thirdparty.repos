@@ -47,3 +47,7 @@ repositories:
         type: git
         url: https://github.com/ros-naoqi/nao_meshes2.git
         version: main
+    thirdparty/simple_hri:
+        type: git
+        url: https://github.com/rodperex/simple_hri.git
+        version: main

@@ -17,6 +17,7 @@ setup(
             'launch/imu_ekf_launch.py',
             'launch/controller_joy_launch.py',
             'launch/nao_odometry_launch.py',
+            'launch/nao.launch.py',
         ]),
     ],
     install_requires=['setuptools'],

@@ -32,9 +32,9 @@ def generate_launch_description():
             shell=True 
         ),
         # Include experiment_nao_launch.py
-        IncludeLaunchDescription(
-            PythonLaunchDescriptionSource([
-                FindPackageShare('hni_cpp'), '/launch/experiment_nao_launch.py'
-            ])
-        ),
+        # IncludeLaunchDescription(
+        #     PythonLaunchDescriptionSource([
+        #         FindPackageShare('hni_cpp'), '/launch/experiment_nao_launch.py'
+        #     ])
+        # ),
     ])
