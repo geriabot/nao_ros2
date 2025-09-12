@@ -18,7 +18,13 @@ setup(
             'launch/controller_joy_launch.py',
             'launch/nao_odometry_launch.py',
             'launch/nao.launch.py',
+            'launch/joy_teleop.launch.py',
+            'launch/leds.launch.py',
         ]),
+        ('share/' + package_name + '/config', [
+        'config/teleop.yaml',
+        'config/nao_default.yaml',
+    ]),
     ],
     install_requires=['setuptools'],
     zip_safe=True,
@@ -35,6 +41,8 @@ setup(
             'imu_transformer = nao_ros2.imu_transformer:main',
             'imu_comparer = nao_ros2.imu_comparer:main',
             'nao_walk_odometry = nao_ros2.nao_walk_odometry:main',
+            'set_leds_node = nao_ros2.set_leds_node:main',
+            'test_leds_node = nao_ros2.test_leds_node:main',
         ],
     },
 )

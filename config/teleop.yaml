@@ -1,0 +1,24 @@
+joy_teleop_node:
+  ros__parameters:
+    teleop:
+      type: topic
+      interface_type: geometry_msgs/msg/Twist
+      topic_name: /target
+      deadman_buttons: [7]
+      axis_mappings:
+        linear-x:
+            axis: 1
+            scale: 1.0
+            offset: 0.0
+        linear-y:
+            axis: 0
+            scale: 1.0
+            offset: 0.0
+        linear-z:
+            button: 2
+            scale: 3.0
+        angular-z:
+          axis: 2
+          scale: 1.0
+          offset: 0
+            

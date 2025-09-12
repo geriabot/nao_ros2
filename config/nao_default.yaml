@@ -1,0 +1,26 @@
+head:
+    intensity: 1.0
+    mode: steady
+    duration: -1.0
+    frequency: 2.0
+
+chest:
+  - color: {r: 1.0, g: 0.0, b: 1.0, a: 1.0}
+    intensity: 1.0
+    mode: blinking
+    duration: -1.0
+    frequency: 1.0
+
+eyes:
+  - color: {r: 1.0, g: 1.0, b: 1.0, a: 1.0}
+    intensity: 1.0
+    mode: loop
+    duration: -1.0
+    frequency: 5.0
+
+ears:
+  - color: {r: 0.0, g: 0.0, b: 1.0, a: 1.0}
+    intensity: 1.0
+    mode: loop
+    duration: -1.0
+    frequency: 10.0

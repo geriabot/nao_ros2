@@ -70,4 +70,18 @@ def generate_launch_description():
             name='nao_pos_action_server',
             output='screen'
         ),
+
+        # LEDs server
+        Node(
+            package='nao_led_server',
+            executable='led_action_server',
+            name='led_action_server_node',
+            output='screen'
+        ),
+
+        # LEDs initialization
+        IncludeLaunchDescription(
+        PythonLaunchDescriptionSource([
+            FindPackageShare("nao_ros2"), '/launch', '/leds.launch.py'])
+        ),
     ])
