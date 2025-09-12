@@ -17,10 +17,10 @@ class TestLEDsNode(Node):
 
         # Build goal
         goal_msg = LedsPlay.Goal()
-        goal_msg.leds = [LedIndexes.LEAR, LedIndexes.REAR]
-        goal_msg.mode = LedModes.LOOP
-        goal_msg.frequency = 2.0  # 2 Hz blink
-        goal_msg.colors = [ColorRGBA(r=1.0, g=1.0, b=0.0, a=1.0)] * 8  # red for all 8 eye LEDs
+        goal_msg.leds = [LedIndexes.REYE, LedIndexes.LEYE]
+        goal_msg.mode = LedModes.BLINKING
+        goal_msg.frequency = 2.0
+        goal_msg.colors = [ColorRGBA(r=1.0, g=1.0, b=0.0, a=1.0)] * 8  
         goal_msg.intensities = [1.0] * 12       # full intensity for all 12 LEDs
         goal_msg.duration = 5.0                  # seconds
 
