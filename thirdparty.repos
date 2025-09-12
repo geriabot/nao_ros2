@@ -13,7 +13,7 @@ repositories:
         version: rolling
     thirdparty/nao_led:
         type: git
-        url: https://github.com/antbono/nao_led.git
+        url: https://github.com/rodperex/nao_led.git
         version: main
     thirdparty/nao_phase_provider:
         type: git
