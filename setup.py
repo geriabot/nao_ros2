@@ -43,6 +43,7 @@ setup(
             'nao_walk_odometry = nao_ros2.nao_walk_odometry:main',
             'set_leds_node = nao_ros2.set_leds_node:main',
             'test_leds_node = nao_ros2.test_leds_node:main',
+            'activate_sonar = nao_ros2.activate_sonar:main',
         ],
     },
 )

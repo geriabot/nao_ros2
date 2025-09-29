@@ -84,4 +84,26 @@ def generate_launch_description():
         PythonLaunchDescriptionSource([
             FindPackageShare("nao_ros2"), '/launch', '/leds.launch.py'])
         ),
+
+        # Sound play
+        Node(
+            package='sound_play',
+            executable='soundplay_node.py',
+            name='soundplay_node',
+            output='screen',
+        ),
+
+        # Image
+        Node(
+            package='usb_cam',
+            executable='usb_cam_node_exe',
+            name='usb_cam_node',
+        ),
+
+        # Sonar activation
+        Node(
+            package='nao_ros2',
+            executable='activate_sonar',
+            name='activate_sonar_node',
+        ),
     ])
