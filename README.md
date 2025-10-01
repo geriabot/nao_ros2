@@ -82,7 +82,7 @@ Para instalar Ubuntu en el robot Nao V6, se debe seguir un proceso que involucra
    - Ejecutar los siguientes comandos dentro del repositorio clonado para generar la imagen del sistema:  
    ```bash
    # Generar imagen del sistema basada en Ubuntu (requiere permisos root)
-   sudo ./generate_image.sh {imagen_de_ubuntu.opn} image.ext3 ubuntu
+   sudo ./generate_image.sh imagen_nao.opn image.ext3 ubuntu
 
    # Convertir la imagen generada a formato .opn
    sudo ./generate_opn.sh image.ext3 image.opn
@@ -93,7 +93,7 @@ Para instalar Ubuntu en el robot Nao V6, se debe seguir un proceso que involucra
 ## **📈 Flasheo de la imagen en el robot Nao**  
 
 4. **Descargar e instalar el flasher oficial de NaoQi**  
-   - Se encuentra disponible en la documentación de **SoftBank** o [aquí](https://support.unitedrobotics.group/en/support/solutions/articles/80001018812-nao-6-downloads)
+   - Se encuentra disponible en la documentación de **SoftBank** o [aquí](https://aldebaran.com/en/support/kb/nao6/downloads/nao6-software-downloads/)
    - Descomprimir y lanzar con permisos root:
     ```bash
     sudo ./flasher
