@@ -7,7 +7,7 @@ Antes de comenzar a utilizar este paquete es necesario seguir los siguientes pas
 
 ## Instalación
 
-Dependencias:
+Dependencias en el Nao:
 ```bash
 sudo apt-get install libmsgpack-dev
 sudo apt-get install libignition-transport11-dev
@@ -32,7 +32,7 @@ Como se puede observar, existen dependencias de paquetes externos, de los cuales
 
 ---
 
-En este punto, ya se encuentran compilados todos los paquetes necesarios. Ahora hay que transferir la compilación al robot **Nao**. Para ello, es necesario seguir los pasos del repositorio de Kenji Brameld con el objetivo de utilizar [sync](https://github.com/ijnek/sync).
+En este punto, ya se encuentran compilados todos los paquetes necesarios. Ahora hay que transferir la compilación al robot **Nao**. Para ello, es necesario seguir los pasos del repositorio de Kenji Brameld con el objetivo de utilizar [sync](https://github.com/ijnek/sync) (también hay que instalar `rsync` en el robot).
 
 
 ```bash
