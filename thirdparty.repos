@@ -29,15 +29,15 @@ repositories:
         version: main
     thirdparty/nao_lola:
         type: git
-        url: https://github.com/andoniroldan/nao_lola.git
+        url: https://github.com/geriabot/nao_lola.git
         version: rolling
     thirdparty/nao_pos:
         type: git
-        url: https://github.com/andoniroldan/nao_pos.git
+        url: https://github.com/geriabot/nao_pos.git
         version: main
     thirdparty/walk:
         type: git
-        url: https://github.com/andoniroldan/walk.git
+        url: https://github.com/geriabot/walk.git
         version: rolling
     thirdparty/nao:
         type: git
