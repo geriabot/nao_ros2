@@ -4,6 +4,7 @@ Antes de comenzar a utilizar este paquete es necesario seguir los siguientes pas
 1. [Instalar Ubuntu 22.04 en el robot Nao](ubuntu.md)
 2. [Configurar el robot Nao](conf.md)
 3. [Instalar ROS 2 en el robot Nao](ros2.md)
+4. Tener Ubuntu 22.04 en el ordenador
 
 ## Instalación
 
