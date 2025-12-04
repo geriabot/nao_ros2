@@ -4,7 +4,7 @@ Antes de comenzar a utilizar este paquete es necesario seguir los siguientes pas
 1. [Instalar Ubuntu 22.04 en el robot Nao](ubuntu.md)
 2. [Configurar el robot Nao](conf.md)
 3. [Instalar ROS 2 en el robot Nao](ros2.md)
-4. Tener Ubuntu 22.04 en el ordenador
+4. Tener Ubuntu 22.04 en el ordenador (o virtualizarlo)
 
 ## Instalación
 
@@ -70,3 +70,16 @@ Este comando activará:
 * El **ModeSwitcher**, que gestiona el inicio y la detención de la locomoción del robot.
 * La interacción por voz a través de los servidios `stt_service` y `tts_service`.
 * El servidor de posiciones del robot `pos_action_server`.
+
+## Simulación con Webots
+
+* Instala el simulador [Webots](https://cyberbotics.com/)
+* Antes de lanzarlo, asegúrate de que está activado ROS 2 en el sistema
+* Laza el simulador mediante el comando:
+```
+webots
+```
+* Activa el robot:
+```
+ros2 launch nao_ros2 nao.launch.py
+```
