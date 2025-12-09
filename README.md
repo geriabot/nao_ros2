@@ -79,6 +79,7 @@ Este comando activará:
 ```
 webots
 ```
+* Selecciona alguno de los mundos proporcionados en [nao_webots](https://github.com/rodperex/nao_webots.git)
 * Activa el robot:
 ```
 ros2 launch nao_ros2 nao.launch.py
