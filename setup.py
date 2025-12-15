@@ -18,6 +18,8 @@ setup(
             'launch/controller_joy_launch.py',
             'launch/nao_odometry_launch.py',
             'launch/nao.launch.py',
+            'launch/simnao.launch.py',
+            'launch/no_hri_nao.launch.py',
             'launch/joy_teleop.launch.py',
             'launch/leds.launch.py',
         ]),
