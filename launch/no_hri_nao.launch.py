@@ -79,7 +79,6 @@ def generate_launch_description():
             FindPackageShare("nao_ros2"), '/launch', '/leds.launch.py'])
         ),
 
-<<<<<<< HEAD
         # Audio file player
         Node(
             package='simple_hri',
@@ -88,8 +87,6 @@ def generate_launch_description():
             output='screen',
         ),
 
-=======
->>>>>>> ef23254f0161402cc56df4d2c2b66a83cd2bdc84
         # Sound play
         Node(
             package='sound_play',
