@@ -38,11 +38,12 @@ def generate_launch_description():
             shell=True 
         ),
         # Interaction
-            IncludeLaunchDescription(
-                PythonLaunchDescriptionSource([
-                    FindPackageShare('simple_hri'), '/launch/simple_hri.launch.py'
-                ])
-            ),
+        IncludeLaunchDescription(
+            PythonLaunchDescriptionSource([
+                FindPackageShare('simple_hri'), '/launch/simple_hri.launch.py'
+            ]),
+            launch_arguments={'run_sound_play': 'false'}.items()
+        ),
         # Robot description
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource([
