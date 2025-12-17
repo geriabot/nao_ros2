@@ -37,6 +37,16 @@ def generate_launch_description():
             output='screen',
             shell=True 
         ),
+        # Interaction
+        IncludeLaunchDescription(
+            PythonLaunchDescriptionSource([
+            FindPackageShare('simple_hri'), '/launch/simple_hri.launch.py'
+            ]),
+            launch_arguments={
+            'run_interaction_services': 'false',
+            'start_sound_play': 'false',
+            }.items()
+        ),
         # Robot description
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource([
@@ -77,14 +87,6 @@ def generate_launch_description():
         IncludeLaunchDescription(
         PythonLaunchDescriptionSource([
             FindPackageShare("nao_ros2"), '/launch', '/leds.launch.py'])
-        ),
-
-        # Audio file player
-        Node(
-            package='simple_hri',
-            executable='audio_file_player',
-            name='audio_file_player_node',
-            output='screen',
         ),
 
         # Sound play
