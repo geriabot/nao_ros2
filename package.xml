@@ -4,7 +4,7 @@
   <version>0.1.0</version>
   <description>ROS2 package for handling and switching modes of the NAO robot</description>
 
-  <maintainer email="andoniroldansandua@gmail.com">Antonio Roldan</maintainer>
+  <maintainer email="rodrigo.perez@urjc.es">Rodrigo Pérez-Rodríugez</maintainer>
   <license>Apache-2.0</license>
 
   <exec_depend>rclpy</exec_depend>
@@ -13,6 +13,9 @@
   <exec_depend>std_msgs</exec_depend>
   <exec_depend>nao_lola_command_msgs</exec_depend>
   <exec_depend>biped_interfaces</exec_depend>
+  <exec_depend>imu_tools</exec_depend>
+  <exec_depend>robot_localization</exec_depend>
+  <exec_depend>tf_transformations</exec_depend>
   
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>
