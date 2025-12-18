@@ -110,4 +110,11 @@ def generate_launch_description():
             executable='activate_sonar',
             name='activate_sonar_node',
         ),
+
+        # Odometry
+        IncludeLaunchDescription(
+            PythonLaunchDescriptionSource([
+                FindPackageShare("nao_ros2"), "/launch/nao_odometry_launch.py"
+            ])
+        ),
     ])

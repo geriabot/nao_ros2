@@ -14,6 +14,7 @@ sudo apt-get install libmsgpack-dev
 sudo apt-get install libignition-transport11-dev
 pip install webrtcvad
 pip install sounddevice
+pip install tf_transformations # needed to have odometry
 ```
 
 Compilación del paquete:
