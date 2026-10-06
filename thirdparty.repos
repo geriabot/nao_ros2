@@ -51,3 +51,11 @@ repositories:
         type: git
         url: https://github.com/rodperex/simple_hri.git
         version: main
+    nao_webots:
+        type: git
+        url: https://github.com/rodperex/nao_webots.git
+        version: master
+    nao_pos_recorder:
+        type: git
+        url: https://github.com/rodperex/nao_pos_recorder.git
+        version: main

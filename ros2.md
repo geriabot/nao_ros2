@@ -1,12 +1,12 @@
 # Instalación de ROS 2 en el Nao y un PC 
 
-Para que el robot **Nao** pueda operar correctamente con ROS 2, se recomienda instalar la distribución **ROS 2 Rolling Ridley**.
+Para que el robot **Nao** pueda operar correctamente con ROS 2, se recomienda instalar la distribución **ROS 2 Humble Hawksbill**.
 
-ROS2 Rolling deberá ser instalado tanto en un pc con **Ubuntu 22.04** como en el robot. La diferencia clave es que la instalación en el **Nao** deberá de ser una instalación base, ya que no tiene interfaz gráfica.
+ROS 2 Humble deberá ser instalado tanto en un pc con **Ubuntu 22.04** como en el robot. La diferencia clave es que la instalación en el **Nao** deberá de ser una instalación base, ya que no tiene interfaz gráfica.
 
 ---
 
-## **🛠️ Pasos para instalar ROS 2 Rolling en el PC y Nao**  
+## **🛠️ Pasos para instalar ROS 2 Humble en el PC y Nao**  
 
 ### **1. Configurar locales, repositorios y claves**  
 Antes de instalar ROS 2, se deben configurar los locales, repositorios correctos y agregar las claves necesarias:
@@ -27,20 +27,17 @@ sudo apt update && sudo apt install -y software-properties-common
 sudo add-apt-repository universe
 ```
 
-Ahora, agregar la clave GPG oficial de ROS 2:
+Ahora, agregar el repositorio de ROS 2 (el paquete `ros2-apt-source` instala la clave GPG y el source de apt, y los mantiene actualizados):
 ```bash
 sudo apt update && sudo apt install curl -y
-sudo curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg
-```
-
-Finalmente, agregar el repositorio de ROS 2 a la lista de sources:
-```bash
-echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(. /etc/os-release && echo $UBUNTU_CODENAME) main" | sudo tee /etc/apt/sources.list.d/ros2.list > /dev/null
+export ROS_APT_SOURCE_VERSION=$(curl -s https://api.github.com/repos/ros-infrastructure/ros-apt-source/releases/latest | grep -F "tag_name" | awk -F\" '{print $4}')
+curl -L -o /tmp/ros2-apt-source.deb "https://github.com/ros-infrastructure/ros-apt-source/releases/download/${ROS_APT_SOURCE_VERSION}/ros2-apt-source_${ROS_APT_SOURCE_VERSION}.$(. /etc/os-release && echo $VERSION_CODENAME)_all.deb"
+sudo apt install /tmp/ros2-apt-source.deb
 ```
 
 ---
 
-### **2. Instalar ROS 2 Rolling**  
+### **2. Instalar ROS 2 Humble**  
 Actualizar el sistema antes de instalar ROS 2:
 ```bash
 sudo apt update && sudo apt upgrade -y
@@ -64,18 +61,18 @@ ROS 2 se basa en sistemas Ubuntu actualizados. Se recomienda mantener el sistema
 sudo apt upgrade
 ```
 
-Instalar ROS 2 Rolling en el **Nao** (versión base, sin entorno gráfico):
+Instalar ROS 2 Humble en el **Nao** (versión base, sin entorno gráfico):
 ```bash
-sudo apt install ros-rolling-ros-base
+sudo apt install ros-humble-ros-base
 ```
 Este paquete incluye:
 - Herramientas básicas de **ROS 2**
 - Librerías de comunicación
 - Soporte para **nodos, servicios y mensajes**
 
-Instalar ROS 2 Rolling en el **PC** (version de escritorio, con entorno gráfico)
+Instalar ROS 2 Humble en el **PC** (version de escritorio, con entorno gráfico)
 ```bash
-sudo apt install ros-rolling-desktop
+sudo apt install ros-humble-desktop
 ```
 Este paquete incluye además:
 - Herramientas de visualización como RViz
@@ -88,7 +85,7 @@ Este paquete incluye además:
 ### **3. Configurar el entorno**  
 Se debe configurar el entorno para que ROS 2 se cargue en cada sesión:
 ```bash
-echo "source /opt/ros/rolling/setup.bash" >> ~/.bashrc
+echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
 source ~/.bashrc
 ```
 
@@ -106,4 +103,4 @@ ros2 --help
 ros2 pkg list
 ```
 
-Si ambos comandos muestran información correctamente, la instalación de ROS 2 Rolling ha sido exitosa.
+Si ambos comandos muestran información correctamente, la instalación de ROS 2 Humble ha sido exitosa.

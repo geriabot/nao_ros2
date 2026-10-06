@@ -51,7 +51,7 @@ class SetLEDsNode(Node):
             )
         ] * 8 
 
-        goal_msg.intensities = [chest_conf['intensity']] * 8
+        goal_msg.intensities = [chest_conf['intensity']] * 12  # el campo es float32[12]
 
         self.get_logger().info(f"Setting chest LEDs to {chest_conf['mode']} mode")
         if chest_conf['mode'] == 'steady':
@@ -90,7 +90,7 @@ class SetLEDsNode(Node):
             )
         ] * 8 
 
-        goal_msg.intensities = [eye_conf['intensity']] * 8
+        goal_msg.intensities = [eye_conf['intensity']] * 12  # el campo es float32[12]
 
         self.get_logger().info(f"Setting eye LEDs to {eye_conf['mode']} mode")
         if eye_conf['mode'] == 'steady':
@@ -131,7 +131,7 @@ class SetLEDsNode(Node):
             )
         ] * 8 
 
-        goal_msg.intensities = [ear_conf['intensity']] * 8
+        goal_msg.intensities = [ear_conf['intensity']] * 12  # el campo es float32[12]
 
         self.get_logger().info(f"Setting ear LEDs to {ear_conf['mode']} mode")
         if ear_conf['mode'] == 'steady':
