@@ -78,6 +78,13 @@ class ModeSwitcher(Node):
         ])
 
     def ensure_stand_then_walk(self):
+        # Standing after a stop (the stand requested when it stopped has finished), it can walk
+        # again at once. Waiting for a swing could block it forever: nao_pos_publisher only
+        # sends swings while /walk_status is false, and it is already true
+        if self.is_standing:
+            self.start_walking()
+            return
+
         if not self.swing_completed:
             self.get_logger().info("Waiting for 'swing' to finish before executing 'stand'...")
             return
