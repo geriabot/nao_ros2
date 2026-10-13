@@ -75,14 +75,10 @@ def generate_launch_description():
                 FindPackageShare('nao_ros2'), '/launch/nao_description_launch.py'
             ])
         ),
-        # Camera conversion node
-        Node(
-            package='nao_ros2',
-            executable='camera_conversion_node',
-            name='camera_conversion_node',
-            output='screen',
-            shell=True 
-        ),
+        # No camera_conversion_node in the simulation: the Webots controller (nao_lola_python)
+        # already publishes the camera on /image_rgb, and /image_raw is empty (black) here, so
+        # the conversion node interleaved black frames with the real ones on /image_rgb (1 of
+        # every 4). On the robot, nao.launch.py starts it to convert the real /image_raw
         # Swing legs
         IncludeLaunchDescription(
         PythonLaunchDescriptionSource([
