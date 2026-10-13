@@ -1,11 +1,18 @@
 from launch import LaunchDescription
-from launch.actions import IncludeLaunchDescription
+from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription
+from launch.substitutions import LaunchConfiguration
+from launch_ros.parameter_descriptions import ParameterValue
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch_ros.actions import Node
 from launch_ros.substitutions import FindPackageShare
 
 def generate_launch_description():
     return LaunchDescription([
+        # Whether the IMU yaw has the opposite sign to the robot's (true on the robot these
+        # nodes were written for; false in the Webots simulation): parameters invert_imu_yaw
+        # of nao_walk_odometry and flip_ned_to_enu of imu_transformer (read by the EKF)
+        DeclareLaunchArgument('invert_imu_yaw', default_value='true'),
+
         # Include NAO robot description launch file
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource([
@@ -42,7 +49,9 @@ def generate_launch_description():
             package='nao_ros2',
             executable='imu_transformer',
             name='imu_transformer_node',
-            output='screen'
+            output='screen',
+            parameters=[{'flip_ned_to_enu': ParameterValue(
+                LaunchConfiguration('invert_imu_yaw'), value_type=bool)}]
         ),
 
         # NAO walk odometry node
@@ -50,6 +59,8 @@ def generate_launch_description():
             package='nao_ros2',
             executable='nao_walk_odometry',
             name='nao_walk_odometry_node',
-            output='screen'
+            output='screen',
+            parameters=[{'invert_imu_yaw': ParameterValue(
+                LaunchConfiguration('invert_imu_yaw'), value_type=bool)}]
         ),
     ])

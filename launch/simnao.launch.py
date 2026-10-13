@@ -133,10 +133,11 @@ def generate_launch_description():
             name='activate_sonar_node',
         ),
 
-        # Odometry
+        # Odometry. In Webots the IMU yaw already has the robot's sign (see invert_imu_yaw)
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource([
                 FindPackageShare("nao_ros2"), "/launch/nao_odometry_launch.py"
-            ])
+            ]),
+            launch_arguments={'invert_imu_yaw': 'false'}.items()
         ),
     ])

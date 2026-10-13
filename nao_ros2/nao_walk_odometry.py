@@ -15,6 +15,12 @@ class NaoWalkOdometry(Node):
         # Parameters
         self.declare_parameter('odom_frame', 'odom')
         self.declare_parameter('base_frame', 'base_link')
+        # The yaw of /imu/data has the opposite sign to the robot's on the robot this node was
+        # written for. In the Webots simulation it already has the robot's sign (checked
+        # against the ground truth of the simulator: a turn of +170 deg gave -174 deg with the
+        # inversion), so simnao.launch.py sets it to false
+        self.declare_parameter('invert_imu_yaw', True)
+        self.yaw_sign = -1.0 if self.get_parameter('invert_imu_yaw').value else 1.0
 
         # Initial position (NED frame: X forward, Y right, Z down)
         self.x = 0.0
@@ -51,8 +57,8 @@ class NaoWalkOdometry(Node):
             orientation_q.w
         ])
 
-        # Invert yaw for correct rotation direction
-        self.theta = -yaw
+        # Invert yaw for correct rotation direction (see invert_imu_yaw)
+        self.theta = self.yaw_sign * yaw
 
     def twist_callback(self, twist_msg):
         # Store velocities

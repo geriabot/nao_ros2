@@ -10,9 +10,18 @@ class ImuTransformer(Node):
     def __init__(self):
         super().__init__('imu_transformer')
         self.pub = self.create_publisher(Imu, '/imu/data_enu', 10)
+        # /imu/data is converted from NED to ENU on the robot this node was written for. In
+        # the Webots simulation it is already ENU (the flip inverted the yaw: checked against
+        # the ground truth of the simulator), so simnao.launch.py sets this to false
+        self.declare_parameter('flip_ned_to_enu', True)
+        self.flip = self.get_parameter('flip_ned_to_enu').value
         self.sub = self.create_subscription(Imu, '/imu/data', self.callback, 10)
         
     def callback(self, msg):
+        if not self.flip:
+            msg.header.frame_id = "base_link"
+            self.pub.publish(msg)
+            return
 
         enu_msg = Imu()
         enu_msg.header = msg.header
