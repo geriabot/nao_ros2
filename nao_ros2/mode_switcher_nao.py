@@ -32,11 +32,22 @@ class ModeSwitcher(Node):
         self.is_walking = False
         self.is_standing = False
         self.swing_completed = False
+        self.has_walked = False
+        # A posture of nao_pos_server moving the legs (from "Action started" to "succeeded").
+        # A cancelled one does not report its end, hence the timeout
+        self.posture_running = False
+        self.posture_started_at = 0.0
+        self.posture_timeout = 15.0
 
         self.last_processed_time = self.get_clock().now()
         self.min_processing_interval = 2.0
 
         self.set_initial_status()
+        # /walk_status again every second: nao_pos_publisher waits for the first one before
+        # starting the swing, and a single message sent at start-up can be lost (e.g. before
+        # the discovery between containers has finished), which left the robot without a swing
+        self.walk_status = False
+        self.create_timer(1.0, lambda: self.pub_walk_status.publish(Bool(data=self.walk_status)))
 
         self.get_logger().info("ModeSwitcher started successfully.")
 
@@ -60,12 +71,14 @@ class ModeSwitcher(Node):
         if self.is_moving(msg):
             if not self.is_walking:
                 self.get_logger().info("The robot is trying to start walking.")
+                self.walk_status = True
                 self.pub_walk_status.publish(Bool(data=True))
                 self.ensure_stand_then_walk()
         else:
             if self.is_walking:
                 self.get_logger().info("The robot stops.")
                 self.is_walking = False
+                self.walk_status = False
                 self.pub_walk_status.publish(Bool(data=False))
                 self.pub_walk_control.publish(Bool(data=False))
                 self.is_standing = False
@@ -77,23 +90,31 @@ class ModeSwitcher(Node):
             msg.angular.x != 0.0, msg.angular.y != 0.0, msg.angular.z != 0.0
         ])
 
+    def posture_in_progress(self):
+        if self.posture_running and time.monotonic() - self.posture_started_at > self.posture_timeout:
+            self.posture_running = False  # its end was not reported (e.g. cancelled)
+        return self.posture_running
+
     def ensure_stand_then_walk(self):
-        # Standing after a stop (the stand requested when it stopped has finished), it can walk
-        # again at once. Waiting for a swing could block it forever: nao_pos_publisher only
-        # sends swings while /walk_status is false, and it is already true
+        # Never start walking while a posture moves the legs, e.g. a swing that
+        # nao_pos_publisher started while the robot was stopped: the walk and the posture would
+        # command the legs at the same time and the robot falls. Called again with the next
+        # /target, every 2 s, until it can go on
+        if self.posture_in_progress():
+            self.get_logger().info("Waiting for the posture in progress to finish...")
+            return
+
         if self.is_standing:
             self.start_walking()
             return
 
-        if not self.swing_completed:
-            self.get_logger().info("Waiting for 'swing' to finish before executing 'stand'...")
-            return
-            
-        if not self.is_standing:
+        # At start-up, a swing first. After a stop no swing may come (nao_pos_publisher only
+        # sends them while /walk_status is false, and it is already true): stand directly
+        if self.swing_completed or self.has_walked:
             self.get_logger().info("Executing 'stand'...")
             self.try_stand()
         else:
-            self.start_walking()
+            self.get_logger().info("Waiting for 'swing' to finish before executing 'stand'...")
 
     def ensure_stand(self):
         if not self.is_standing:
@@ -108,6 +129,12 @@ class ModeSwitcher(Node):
     def action_status_callback(self, msg):
         self.get_logger().info(f"Action status received: {msg.data}")
 
+        if msg.data.startswith("Action started"):
+            self.posture_running = True
+            self.posture_started_at = time.monotonic()
+            self.is_standing = False
+        elif "succeeded" in msg.data.lower():
+            self.posture_running = False
         if "succeeded" in msg.data.lower():
             if "only_legs_fast" in msg.data.lower():
                 self.get_logger().info("Swing finished...")
@@ -130,6 +157,7 @@ class ModeSwitcher(Node):
         time.sleep(2.5)
         self.pub_walk_control.publish(Bool(data=True))
         self.is_walking = True
+        self.has_walked = True
         self.is_standing = False
         self.swing_completed = False
         self.get_logger().info("Walk started successfully.")
