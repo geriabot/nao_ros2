@@ -123,7 +123,7 @@ ros2 topic hz /image_rgb                              # las imágenes por segund
 
 El nodo solo usa `rclpy`, `sensor_msgs`, OpenCV y NumPy, por eso funciona igual con Humble que con
 Jazzy. Se ha probado con el Humble del Nao (en el contenedor de la simulación) y un ordenador con
-Jazzy, los dos con Cyclone DDS: la imagen comprimida cruza de una distribución a otra y llega a
+Jazzy, con Cyclone DDS y también con Fast DDS (solo por UDP, como por la red), el que usa el Nao por defecto: la imagen comprimida cruza de una distribución a otra y llega a
 10 imágenes por segundo, a 640x480, con la orientación y los colores de la original. No hay que
 lanzar el decodificador sin `compressed:=true` en el Nao: habría dos nodos publicando `/image_rgb`.
 
