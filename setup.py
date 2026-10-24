@@ -39,6 +39,7 @@ setup(
         'console_scripts': [
             'mode_switcher_nao = nao_ros2.mode_switcher_nao:main',
             'camera_conversion_node = nao_ros2.camera_conversion_node:main',
+            'compressed_image_decoder = nao_ros2.compressed_image_decoder:main',
             'nao_imu_odometry = nao_ros2.nao_imu_odometry:main',
             'imu_transformer = nao_ros2.imu_transformer:main',
             'imu_comparer = nao_ros2.imu_comparer:main',

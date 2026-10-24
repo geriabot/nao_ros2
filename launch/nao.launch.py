@@ -1,11 +1,18 @@
 from launch import LaunchDescription
-from launch.actions import IncludeLaunchDescription
+from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription
 from launch.launch_description_sources import PythonLaunchDescriptionSource
+from launch.substitutions import LaunchConfiguration, PythonExpression
 from launch_ros.actions import Node
 from launch_ros.substitutions import FindPackageShare
 
 def generate_launch_description():
+    # compressed:=true: the camera goes out as JPEG on /image_rgb/compressed only (not raw on
+    # /image_rgb), for Wi-Fi; the computer decodes it with compressed_image_decoder
+    compressed = LaunchConfiguration('compressed')
     return LaunchDescription([
+        DeclareLaunchArgument('compressed', default_value='false',
+                              description='Publish the camera as JPEG on /image_rgb/compressed instead of raw'),
+        DeclareLaunchArgument('jpeg_quality', default_value='80', description='JPEG quality, 1-100'),
         Node(
             package='nao_lola_client',
             executable='nao_lola_client',
@@ -81,7 +88,12 @@ def generate_launch_description():
             executable='camera_conversion_node',
             name='camera_conversion_node',
             output='screen',
-            shell=True 
+            shell=True,
+            parameters=[{
+                'publish_compressed': compressed,
+                'publish_raw': PythonExpression(["'", compressed, "'.lower() not in ('true', '1')"]),
+                'jpeg_quality': LaunchConfiguration('jpeg_quality'),
+            }],
         ),
         # Swing legs
         IncludeLaunchDescription(

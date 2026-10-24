@@ -99,6 +99,34 @@ Este comando activará:
 * La interacción por voz a través de los servicios `stt_service` y `tts_service` (y las acciones `stt_action` y `tts_action`) de [simple_hri](https://github.com/rodperex/simple_hri).
 * El servidor de posiciones del robot `nao_pos_action_server` y el de LEDs `led_action_server`.
 
+### La cámara por wifi: imagen comprimida
+
+Sin comprimir, cada imagen de la cámara (`/image_rgb`, 640x480 RGB) ocupa unos 900 KB, y por wifi
+eso limita las imágenes por segundo que llegan al ordenador. Con `compressed:=true`,
+`camera_conversion_node` publica la imagen en JPEG (`sensor_msgs/CompressedImage`, unos 36 KB a
+calidad 80) en `/image_rgb/compressed`, y deja de publicar `/image_rgb`, de modo que por la red solo
+viaja la comprimida. En el ordenador, `compressed_image_decoder` la descomprime y la vuelve a
+publicar como `/image_rgb`, así que el resto de nodos del ordenador no cambian.
+
+En el Nao (en lugar del `ros2 launch` del paso 4):
+```bash
+ros2 launch nao_ros2 nao.launch.py compressed:=true   # jpeg_quality:=80 por defecto (1-100)
+```
+
+En el ordenador, con las mismas `ROS_DOMAIN_ID` y `RMW_IMPLEMENTATION` que el Nao:
+```bash
+ros2 run nao_ros2 compressed_image_decoder            # con nao_ros2 compilado en el ordenador
+# o, con cualquier ROS 2 cargado (por ejemplo Jazzy) y sin compilar nao_ros2:
+python3 <ruta>/nao_ros2/nao_ros2/compressed_image_decoder.py
+ros2 topic hz /image_rgb                              # las imágenes por segundo que llegan
+```
+
+El nodo solo usa `rclpy`, `sensor_msgs`, OpenCV y NumPy, por eso funciona igual con Humble que con
+Jazzy. Se ha probado con el Humble del Nao (en el contenedor de la simulación) y un ordenador con
+Jazzy, los dos con Cyclone DDS: la imagen comprimida cruza de una distribución a otra y llega a
+10 imágenes por segundo, a 640x480, con la orientación y los colores de la original. No hay que
+lanzar el decodificador sin `compressed:=true` en el Nao: habría dos nodos publicando `/image_rgb`.
+
 ## Simulación con Webots
 
 La simulación se ejecuta en el ordenador. Webots simula el robot y su interfaz LoLa, y los mismos nodos que corren en el Nao se conectan a él.
