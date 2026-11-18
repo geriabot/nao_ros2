@@ -73,7 +73,10 @@ def generate_launch_description():
             ]),
             launch_arguments={
             'run_interaction_services': 'true',
-            'start_sound_play': 'false',
+            # The cloud engines (OpenAI to listen, Google to speak): the Nao cannot run the local
+            # models. They need OPENAI_API_KEY and GOOGLE_APPLICATION_CREDENTIALS
+            'backend': 'cloud',
+            'language': 'es',
             }.items()
         ),
         # Robot description

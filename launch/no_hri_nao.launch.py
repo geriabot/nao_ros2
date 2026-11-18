@@ -43,8 +43,8 @@ def generate_launch_description():
             FindPackageShare('simple_hri'), '/launch/simple_hri.launch.py'
             ]),
             launch_arguments={
+            # Only the player of the audio sent by the computer that runs simple_hri
             'run_interaction_services': 'false',
-            'start_sound_play': 'false',
             }.items()
         ),
         # Robot description

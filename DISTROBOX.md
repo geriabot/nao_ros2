@@ -119,7 +119,7 @@ webots ~/nao_ws/src/nao_webots/worlds/nao_indoors.wbt   # terminal 1
 ros2 launch nao_ros2 simnao.launch.py                     # terminal 2
 ```
 
-Los servicios de voz de `simple_hri` (`stt_service`, `tts_service`) necesitan además las
+La voz de `simple_hri` (acciones `stt_action` y `tts_action`, en la nube) necesita además las
 dependencias y credenciales descritas en [Dependencias en el Nao](README.md#dependencias-en-el-nao).
 
 ## Uso diario

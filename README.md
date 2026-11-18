@@ -61,7 +61,7 @@ pip install tf_transformations # needed to have odometry
 pip install openai google-cloud-texttospeech
 ```
 
-`alsa-utils`, `libportaudio2`, `webrtcvad`, `sounddevice`, `openai` y `google-cloud-texttospeech` son las dependencias de los servicios de voz de [simple_hri](https://github.com/rodperex/simple_hri) en su versión en la nube (`stt_service` con la API de OpenAI y `tts_service` con Google Cloud TTS), que es la que lanza `nao.launch.py`. Estos servicios necesitan además las credenciales `OPENAI_API_KEY` y `GOOGLE_APPLICATION_CREDENTIALS`: ver [cómo configurarlas en simple_hri](https://github.com/rodperex/simple_hri#4-configure-api-credentials).
+`alsa-utils`, `libportaudio2`, `webrtcvad`, `sounddevice`, `openai` y `google-cloud-texttospeech` son las dependencias de la voz de [simple_hri](https://github.com/rodperex/simple_hri) en su versión en la nube (`backend:=cloud`: escuchar con la API de OpenAI y hablar con Google Cloud TTS), que es la que lanza `nao.launch.py`. Estos servicios necesitan además las credenciales `OPENAI_API_KEY` y `GOOGLE_APPLICATION_CREDENTIALS`: ver [cómo configurarlas en simple_hri](https://github.com/rodperex/simple_hri#4-configure-api-credentials).
 
 ### Carga del entorno
 
@@ -96,7 +96,7 @@ ros2 launch nao_ros2 nao.launch.py
 
 Este comando activará:
 * El **ModeSwitcher**, que gestiona el inicio y la detención de la locomoción del robot.
-* La interacción por voz a través de los servicios `stt_service` y `tts_service` (y las acciones `stt_action` y `tts_action`) de [simple_hri](https://github.com/rodperex/simple_hri).
+* La interacción por voz de [simple_hri](https://github.com/rodperex/simple_hri) en la nube: las acciones `stt_action` (escuchar) y `tts_action` (hablar) y los servicios `extract_service` y `yesno_service`.
 * El servidor de posiciones del robot `nao_pos_action_server` y el de LEDs `led_action_server`.
 
 ### La cámara por wifi: imagen comprimida
